@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rcplatform.livechat.mapper.ReportRecordMapper">
+  <resultMap id="BaseResultMap" type="com.rcplatform.livechat.model.ReportRecord">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="use_id" jdbcType="INTEGER" property="useId" />
+    <result column="off_time" jdbcType="TIMESTAMP" property="offTime" />
+    <result column="off_duration" jdbcType="INTEGER" property="offDuration" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+</mapper>

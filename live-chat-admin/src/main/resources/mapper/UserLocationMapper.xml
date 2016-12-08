@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rcplatform.livechat.mapper.UserLocationMapper">
+    <resultMap id="BaseResultMap" type="com.rcplatform.livechat.model.UserLocation">
+        <!--
+          WARNING - @mbggenerated
+        -->
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="longitude" property="longitude" jdbcType="VARCHAR"/>
+        <result column="latitude" property="latitude" jdbcType="VARCHAR"/>
+        <result column="ip" property="ip" jdbcType="VARCHAR"/>
+        <result column="continent" property="continent" jdbcType="VARCHAR"/>
+        <result column="continent_code" property="continentCode" jdbcType="VARCHAR"/>
+        <result column="country_code" property="countryCode" jdbcType="VARCHAR"/>
+        <result column="country" property="country" jdbcType="VARCHAR"/>
+        <result column="time_zone" property="timeZone" jdbcType="VARCHAR"/>
+        <result column="subdivision_code" property="subdivisionCode" jdbcType="VARCHAR"/>
+        <result column="subdivision" property="subdivision" jdbcType="VARCHAR"/>
+        <result column="city_code" property="cityCode" jdbcType="VARCHAR"/>
+        <result column="location_open" property="locationOpen" jdbcType="TINYINT"/>
+        <result column="city" property="city" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="updateByUserId" parameterType="com.rcplatform.livechat.model.UserLocation">
+    update rc_user_location set longitude = #{longitude},latitude = #{latitude},ip=#{ip},continent = #{continent},continent_code = #{continentCode},country = #{country},time_zone = #{timeZone},subdivision_code = #{subdivisionCode},subdivision = #{subdivision},city_code = #{cityCode},location_open = #{locationOpen},city = #{city},update_time = #{updateTime} where user_id = #{userId}
+  </select>
+</mapper>

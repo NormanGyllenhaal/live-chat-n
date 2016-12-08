@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rcplatform.livechat.mapper.PushMapper">
+  <resultMap id="BaseResultMap" type="com.rcplatform.livechat.model.Push">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="app_id" jdbcType="INTEGER" property="appId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="mode" jdbcType="TINYINT" property="mode" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="gold" jdbcType="DECIMAL" property="gold" />
+    <result column="push_time" jdbcType="TIMESTAMP" property="pushTime" />
+    <result column="is_push" jdbcType="TINYINT" property="isPush" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="fail" jdbcType="INTEGER" property="fail" />
+    <result column="push_way" jdbcType="INTEGER" property="pushWay" />
+    <result column="success" jdbcType="INTEGER" property="success" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+</mapper>

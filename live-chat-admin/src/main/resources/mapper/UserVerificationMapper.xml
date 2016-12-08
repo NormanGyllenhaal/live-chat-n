@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rcplatform.livechat.mapper.UserVerificationMapper">
+    <resultMap id="BaseResultMap" type="com.rcplatform.livechat.model.UserVerification">
+        <!--
+          WARNING - @mbggenerated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="login_token" jdbcType="VARCHAR" property="loginToken"/>
+        <result column="email_token" jdbcType="VARCHAR" property="emailToken"/>
+        <result column="push_token" jdbcType="VARCHAR" property="pushToken"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="login_token_expiration" jdbcType="TIMESTAMP" property="loginTokenExpiration"/>
+        <result column="email_token_expiration" jdbcType="TIMESTAMP" property="emailTokenExpiration"/>
+    </resultMap>
+
+    <update id="updateByUserId" parameterType="com.rcplatform.livechat.model.UserVerification">
+        update rc_user_verification
+        <set>
+            <if test="loginToken != null">
+                login_token = #{loginToken},
+            </if>
+            <if test="emailToken != null">
+                email_token = #{emailToken},
+            </if>
+            <if test="pushToken != null">
+                push_token = #{pushToken},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="loginTokenExpiration != null">
+                login_token_expriation = #{loginTokenExpiration},
+            </if>
+            <if test="emailTokenExpiration != null">
+                email_token_expiration = #{emailTokenExpiration}
+            </if>
+        </set>
+        where user_id = #{userId}
+    </update>
+
+    <select id="selectJoinUser" resultType="java.util.HashMap">
+    select a.id as userId ,b.email_token_expiration as emailTokenExpiration ,b.email_token as emailToken from rc_user a INNER JOIN rc_user_verification b on a.id = b.user_id where a.user_account = #{userAccount} and a.app_id = #{appId}
+  </select>
+</mapper>

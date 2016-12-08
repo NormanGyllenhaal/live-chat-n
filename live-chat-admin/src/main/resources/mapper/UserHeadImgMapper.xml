@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rcplatform.livechat.mapper.UserHeadImgMapper">
+  <resultMap id="BaseResultMap" type="com.rcplatform.livechat.model.UserHeadImg">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="gender" jdbcType="TINYINT" property="gender" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="head_img" jdbcType="VARCHAR" property="headImg" />
+    <result column="checked" jdbcType="TINYINT" property="checked" />
+    <result column="handle" jdbcType="TINYINT" property="handle" />
+    <result column="handle_time" jdbcType="TIMESTAMP" property="handleTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+  </resultMap>
+</mapper>

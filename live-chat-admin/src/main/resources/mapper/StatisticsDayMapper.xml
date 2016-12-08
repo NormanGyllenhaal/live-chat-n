@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rcplatform.livechat.mapper.StatisticsDayMapper">
+  <resultMap id="BaseResultMap" type="com.rcplatform.livechat.model.StatisticsDay">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="woman_click" jdbcType="INTEGER" property="womanClick" />
+    <result column="boy_click" jdbcType="INTEGER" property="boyClick" />
+    <result column="both_click" jdbcType="INTEGER" property="bothClick" />
+    <result column="match_skip_count" jdbcType="INTEGER" property="matchSkipCount" />
+    <result column="kiss_boy_count" jdbcType="INTEGER" property="kissBoyCount" />
+    <result column="kiss_girl_count" jdbcType="INTEGER" property="kissGirlCount" />
+    <result column="flower_count" jdbcType="INTEGER" property="flowerCount" />
+    <result column="hand_count" jdbcType="INTEGER" property="handCount" />
+    <result column="video_boy_leave_count" jdbcType="INTEGER" property="videoBoyLeaveCount" />
+    <result column="video_boy_leave_people" jdbcType="INTEGER" property="videoBoyLeavePeople" />
+    <result column="video_girl_leave_count" jdbcType="INTEGER" property="videoGirlLeaveCount" />
+    <result column="video_girl_leave_people" jdbcType="INTEGER" property="videoGirlLeavePeople" />
+    <result column="video_boy_leave_time" jdbcType="INTEGER" property="videoBoyLeaveTime" />
+    <result column="video_girl_leave_time" jdbcType="INTEGER" property="videoGirlLeaveTime" />
+    <result column="match_video_time" jdbcType="INTEGER" property="matchVideoTime" />
+    <result column="match_video_people" jdbcType="INTEGER" property="matchVideoPeople" />
+    <result column="both_friend_total" jdbcType="INTEGER" property="bothFriendTotal" />
+    <result column="both_friend_day" jdbcType="INTEGER" property="bothFriendDay" />
+    <result column="video_befriend_count" jdbcType="INTEGER" property="videoBefriendCount" />
+    <result column="video_girl_add_friend_count" jdbcType="INTEGER" property="videoGirlAddFriendCount" />
+    <result column="three_chat_add_friend_count" jdbcType="INTEGER" property="threeChatAddFriendCount" />
+    <result column="three_chat_boy_leave_count" jdbcType="INTEGER" property="threeChatBoyLeaveCount" />
+    <result column="three_chat_girl_leave_count" jdbcType="INTEGER" property="threeChatGirlLeaveCount" />
+    <result column="three_chat_avg_time" jdbcType="INTEGER" property="threeChatAvgTime" />
+    <result column="three_chat_count" jdbcType="INTEGER" property="threeChatCount" />
+    <result column="match_page_chat_click_count" jdbcType="INTEGER" property="matchPageChatClickCount" />
+    <result column="boy_pay_people" jdbcType="INTEGER" property="boyPayPeople" />
+    <result column="boy_pay_count" jdbcType="INTEGER" property="boyPayCount" />
+    <result column="girl_pay_people" jdbcType="INTEGER" property="girlPayPeople" />
+    <result column="girl_pay_count" jdbcType="INTEGER" property="girlPayCount" />
+    <result column="match_page_pay_people" jdbcType="INTEGER" property="matchPagePayPeople" />
+    <result column="match_page_head_click_count" jdbcType="INTEGER" property="matchPageHeadClickCount" />
+    <result column="match_page_pay_count" jdbcType="INTEGER" property="matchPagePayCount" />
+    <result column="chat_page_people" jdbcType="INTEGER" property="chatPagePeople" />
+    <result column="chat_page_count" jdbcType="INTEGER" property="chatPageCount" />
+    <result column="image_modify_count" jdbcType="INTEGER" property="imageModifyCount" />
+    <result column="share_num" jdbcType="INTEGER" property="shareNum" />
+    <result column="video_time" jdbcType="INTEGER" property="videoTime" />
+    <result column="video_people" jdbcType="INTEGER" property="videoPeople" />
+    <result column="friend_video_time" jdbcType="INTEGER" property="friendVideoTime" />
+    <result column="friend_video_people" jdbcType="INTEGER" property="friendVideoPeople" />
+    <result column="friend_video_count" jdbcType="INTEGER" property="friendVideoCount" />
+    <result column="girl_girl_video_count" jdbcType="INTEGER" property="girlGirlVideoCount" />
+    <result column="boy_girl_video_count" jdbcType="INTEGER" property="boyGirlVideoCount" />
+    <result column="boy_boy_video_count" jdbcType="INTEGER" property="boyBoyVideoCount" />
+    <result column="girl_match_gold" jdbcType="INTEGER" property="girlMatchGold" />
+    <result column="boy_match_gold" jdbcType="INTEGER" property="boyMatchGold" />
+    <result column="android_match_gold" jdbcType="INTEGER" property="androidMatchGold" />
+    <result column="ios_match_gold" jdbcType="INTEGER" property="iosMatchGold" />
+    <result column="match_gold" jdbcType="INTEGER" property="matchGold" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+
+    <select id="selectFromVideoRecord" resultMap="BaseResultMap">
+   SELECT * FROM
+       (SELECT IFNULL(SUM(video_time)/2,0) as match_video_time FROM rc_video_record WHERE is_friend = 1 AND create_time between #{beginTime} and #{endTime}) as a,
+       (SELECT COUNT(*) as match_video_people FROM rc_video_record WHERE is_friend = 1 AND create_time between #{beginTime} and #{endTime}) as b,
+       (SELECT IFNULL(AVG(video_time),0) as three_chat_avg_time FROM rc_video_record WHERE is_friend = 1  AND create_time between #{beginTime} and #{endTime}) as c,
+       (SELECT IFNULL(SUM(video_time)/2,0) as video_time FROM rc_video_record WHERE create_time between #{beginTime} and #{endTime}) as d,
+       (SELECT COUNT(*) as video_people FROM rc_video_record WHERE create_time between #{beginTime} and #{endTime}) as e,
+       (SELECT IFNULL(SUM(video_time)/2,0) as friend_video_time FROM rc_video_record WHERE is_friend = 2 AND create_time between #{beginTime} and #{endTime}) as f,
+       (SELECT IFNULL(COUNT(*),0) as friend_video_people FROM rc_video_record WHERE is_friend = 2 AND create_time between #{beginTime} and #{endTime}) as g,
+       (SELECT IFNULL(COUNT(*),0) as three_chat_count FROM rc_video_record WHERE is_friend = 1 AND video_time = 180000 AND create_time between #{beginTime} and #{endTime}) as h,
+       (SELECT IFNULL(COUNT(*),0) as girl_girl_video_count FROM rc_video_record WHERE gender = 2 AND matched_gender = 2 AND create_time between #{beginTime} and #{endTime}) as i,
+       (select sum(boy_girl_video_count) as boy_girl_video_count from  (SELECT IFNULL(COUNT(*),0) as boy_girl_video_count FROM rc_video_record  WHERE gender = 1
+       AND matched_gender = 2  AND create_time between #{beginTime} and #{endTime} union all SELECT IFNULL(COUNT(*),0) as boy_girl_video_count FROM rc_video_record WHERE gender = 2
+       AND matched_gender = 1  AND create_time between #{beginTime} and #{endTime}) z ) as j,
+       (SELECT IFNULL(COUNT(*),0) as boy_boy_video_count FROM rc_video_record WHERE gender = 1 AND matched_gender = 1 AND create_time between #{beginTime} and #{endTime}) as k
+  </select>
+
+    <select id="selectFromAddFriendRecord" resultType="integer">
+        SELECT COUNT(*) as video_befriend_count FROM  rc_add_friend_record WHERE add_friend_when = 1 AND create_time between #{beginTime} and #{endTime}
+    </select>
+
+    <select id="selectFromConsumeRecord" resultMap="BaseResultMap">
+        SELECT * FROM  (SELECT COUNT(distinct user_id) as match_page_pay_people FROM rc_consume_record WHERE create_time between #{beginTime} and #{endTime} AND consume_id = 3) as i,
+        (SELECT COUNT(*) as match_page_pay_count FROM rc_consume_record WHERE create_time between #{beginTime} and #{endTime}  AND consume_id = 3 ) as j,
+        (SELECT COUNT(distinct user_id) as boy_pay_people FROM rc_consume_record a INNER JOIN rc_user b ON a.user_id = b.id WHERE a.create_time between #{beginTime} and #{endTime}
+          AND a.consume_id = 3 AND b.gender = 1) as k,
+        (SELECT COUNT(*) as boy_pay_count FROM rc_consume_record a INNER JOIN rc_user b ON a.user_id = b.id WHERE a.create_time between #{beginTime} and #{endTime}
+         AND a.consume_id = 3 AND b.gender = 1) as l,
+        (SELECT COUNT(distinct user_id) as girl_pay_people FROM rc_consume_record a INNER JOIN rc_user b ON a.user_id = b.id WHERE a.create_time between #{beginTime} and #{endTime}
+         AND a.consume_id = 3 AND b.gender = 2) as m,
+        (SELECT COUNT(*) as girl_pay_count FROM rc_consume_record a INNER JOIN rc_user b ON a.user_id = b.id WHERE a.create_time between #{beginTime} and #{endTime}  AND a.consume_id = 3
+        AND b.gender = 2) as n,
+        (SELECT IFNULL(SUM(c.price),0) as girl_match_gold FROM rc_consume_record a INNER JOIN rc_user b ON a.user_id = b.id INNER JOIN rc_consume c on c.id = a.consume_id
+         WHERE a.create_time between #{beginTime} and #{endTime}  AND a.consume_id = 5 AND b.gender = 2) as o,
+        (SELECT IFNULL(SUM(c.price),0) as boy_match_gold FROM rc_consume_record a INNER JOIN rc_user b ON a.user_id = b.id INNER JOIN rc_consume c on c.id = a.consume_id
+        WHERE a.create_time between #{beginTime} and #{endTime}  AND a.consume_id = 5 AND b.gender = 1) as p,
+        (SELECT IFNULL(SUM(c.price),0) as android_match_gold FROM rc_consume_record a INNER JOIN rc_user b ON a.user_id = b.id INNER JOIN rc_consume c on c.id = a.consume_id
+        WHERE a.create_time between #{beginTime} and #{endTime}  AND a.consume_id = 5 AND b.platform_type = 2) as q,
+        (SELECT IFNULL(SUM(c.price),0) as ios_match_gold FROM rc_consume_record a INNER JOIN rc_user b ON a.user_id = b.id INNER JOIN rc_consume c on c.id = a.consume_id
+        WHERE a.create_time between #{beginTime} and #{endTime}  AND a.consume_id = 5 AND b.platform_type = 1) as r,
+        (SELECT IFNULL(SUM(c.price),0) as match_gold FROM rc_consume_record a INNER JOIN rc_user b ON a.user_id = b.id INNER JOIN rc_consume c on c.id = a.consume_id
+        WHERE a.create_time between #{beginTime} and #{endTime}  AND a.consume_id = 5 ) as s
+    </select>
+
+
+    <select id="selectVideo" resultMap="BaseResultMap">
+        SELECT match_video_time,match_video_people,three_chat_avg_time,video_time,video_people,friend_video_time,friend_video_people,friend_video_count,three_chat_count,girl_girl_video_count, boy_girl_video_count,boy_boy_video_count,create_time FROM rc_statistics_day where create_time BETWEEN #{beginDate} and #{endDate} ORDER BY create_time DESC
+    </select>
+
+    <select id="selectFriend" resultMap="BaseResultMap">
+        SELECT  video_befriend_count,boy_girl_video_count,both_friend_total,both_friend_day,create_time  FROM  rc_statistics_day where create_time BETWEEN #{beginDate} and #{endDate} ORDER BY create_time DESC
+    </select>
+
+    <select id="selectConsume" resultMap="BaseResultMap">
+        SELECT match_page_pay_people,match_page_pay_count,boy_pay_people,boy_pay_count,girl_pay_people,girl_pay_count,girl_match_gold,boy_match_gold,android_match_gold,ios_match_gold,match_gold,create_time FROM rc_statistics_day WHERE  create_time BETWEEN #{beginDate} and #{endDate} ORDER BY create_time DESC
+    </select>
+
+    <select id="selectUserFriend" resultMap="BaseResultMap">
+         SELECT  * FROM
+         (SELECT count(*) as both_friend_total from rc_user_friend where friend_type = 2) as a ,
+         (SELECT count(*) as both_friend_day from rc_user_friend where friend_type = 2 AND create_time between #{beginTime} and #{endTime}) as b
+    </select>
+
+
+</mapper>

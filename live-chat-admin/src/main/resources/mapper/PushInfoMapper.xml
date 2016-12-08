@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rcplatform.livechat.mapper.PushInfoMapper">
+    <resultMap id="BaseResultMap" type="com.rcplatform.livechat.model.PushInfo">
+        <!--
+          WARNING - @mbggenerated
+        -->
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="gender" property="gender" jdbcType="TINYINT"/>
+        <result column="platform_type" property="platformType" jdbcType="TINYINT"/>
+        <result column="push_token" property="pushToken" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+
+    <resultMap id="JoinUserResultMap" type="com.rcplatform.livechat.dto.response.PushUserDto">
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="language_id" property="languageId" jdbcType="VARCHAR"/>
+        <result column="platform_type" property="platformType" jdbcType="TINYINT"/>
+        <result column="push_token" property="pushToken" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <update id="updatePushTokenByUserId" parameterType="com.rcplatform.livechat.model.PushInfo">
+        update rc_push_info
+        <set>
+            <if test="gender!=null">
+                gender = #{gender},
+            </if>
+            <if test="pushToken!=null">
+                push_token = #{pushToken},
+            </if>
+            <if test="platformType!=null">
+                platform_type = #{platformType}
+            </if>
+        </set>
+        WHERE user_id = #{userId}
+    </update>
+
+    <select id="selectPushToken" resultMap="BaseResultMap">
+        SELECT user_id, push_token FROM rc_push_info
+        WHERE platform_type = #{platformType}
+        <if test="gender !=null">
+            AND gender = #{gender}
+        </if>
+        <if test="userIdList!=null">
+            AND user_id IN
+            <foreach collection="userIdList" item="userId" index="index" open="(" close=")" separator=",">
+                #{userId}
+            </foreach>
+        </if>
+        GROUP BY user_id
+    </select>
+
+
+    <select id="selectJoinUser" resultMap="JoinUserResultMap">
+        select b.user_id,b.push_token,a.language_id FROM rc_user a inner join rc_push_info b on a.id = b.user_id where b.platform_type = #{platformType}
+        <if test="gender !=null">
+            AND gender = #{gender}
+        </if>
+        <if test="userIdList!=null">
+            AND b.user_id IN
+            <foreach collection="userIdList" item="userId" index="index" open="(" close=")" separator=",">
+                #{userId}
+            </foreach>
+        </if>
+        and
+        a.country_id in
+        <foreach collection="list" item="countryId" index="index" open="(" close=")" separator=",">
+            #{countryId}
+        </foreach>
+    </select>
+</mapper>

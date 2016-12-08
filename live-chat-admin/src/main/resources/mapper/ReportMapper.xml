@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rcplatform.livechat.mapper.ReportMapper">
+  <resultMap id="BaseResultMap" type="com.rcplatform.livechat.model.Report">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="app_id" jdbcType="INTEGER" property="appId" />
+    <result column="report_user_id" jdbcType="INTEGER" property="reportUserId" />
+    <result column="reported_user_id" jdbcType="INTEGER" property="reportedUserId" />
+    <result column="report_img" jdbcType="VARCHAR" property="reportImg" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="is_handle" jdbcType="TINYINT" property="isHandle" />
+    <result column="result" jdbcType="TINYINT" property="result" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="report_page" jdbcType="TINYINT" property="reportPage" />
+    <result column="handle_time" jdbcType="TIMESTAMP" property="handleTime" />
+    <result column="handle_way" jdbcType="TINYINT" property="handleWay" />
+  </resultMap>
+
+
+  <resultMap id="JoinResultMap" type="com.rcplatform.livechat.dto.response.ReportDto">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="app_id" jdbcType="INTEGER" property="appId" />
+    <result column="report_user_id" jdbcType="INTEGER" property="reportUserId" />
+    <result column="reported_user_id" jdbcType="INTEGER" property="reportedUserId" />
+    <result column="report_img" jdbcType="VARCHAR" property="reportImg" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="is_handle" jdbcType="TINYINT" property="isHandle" />
+    <result column="result" jdbcType="TINYINT" property="result" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="report_page" jdbcType="TINYINT" property="reportPage" />
+    <result column="handle_time" jdbcType="TIMESTAMP" property="handleTime" />
+    <result column="handle_way" jdbcType="TINYINT" property="handleWay" />
+    <result column="user_name" property="reportedUserName" jdbcType="VARCHAR" />
+    <result column="background" property="background" jdbcType="VARCHAR" />
+    <result column="head_img" property="headImg" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="TINYINT" />
+    <result column="birthday" property="birthday" jdbcType="DATE" />
+    <result column="reportUserName" property="reportUserName" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+
+
+  <select id="selectJoinUser" resultMap="JoinResultMap">
+       SELECT  a.*,b.user_name,b.background,b.head_img,b.gender,b.birthday,c.user_name as reportUserName FROM rc_report a INNER  JOIN  rc_user b ON  a.reported_user_id = b.id
+       INNER  JOIN  rc_user c ON  a.report_user_id = c.id where is_handle = #{isHandle} AND report_page = #{reportPage}
+  </select>
+</mapper>

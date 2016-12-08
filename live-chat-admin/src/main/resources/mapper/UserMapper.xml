@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rcplatform.livechat.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.rcplatform.livechat.model.User">
+        <!--
+          WARNING - @mbggenerated
+        -->
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="user_account" property="userAccount" jdbcType="VARCHAR"/>
+        <result column="three_party_id" property="threePartyId" jdbcType="VARCHAR"/>
+        <result column="three_party_email" property="threePartyEmail" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="app_id" property="appId" jdbcType="INTEGER"/>
+        <result column="background" property="background" jdbcType="VARCHAR"/>
+        <result column="head_img" property="headImg" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="TINYINT"/>
+        <result column="country_id" property="countryId" jdbcType="TINYINT"/>
+        <result column="country_name" property="countryName" jdbcType="VARCHAR"/>
+        <result column="gold_num" property="goldNum" jdbcType="DECIMAL"/>
+        <result column="language_id" property="languageId" jdbcType="VARCHAR"/>
+        <result column="language_name" property="languageName" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="TINYINT"/>
+        <result column="birthday" property="birthday" jdbcType="DATE"/>
+        <result column="platform_type" property="platformType" jdbcType="TINYINT"/>
+        <result column="type" property="type" jdbcType="TINYINT"/>
+        <result column="pay_status" property="payStatus" jdbcType="TINYINT"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <select id="selectByThreePartyId" resultType="com.rcplatform.livechat.model.User">
+    select * from rc_user where three_party_id = #{threePartyId} and app_id = #{appId}
+  </select>
+    <update id="updatePassword">
+    update rc_user set password = #{password} where user_account = #{userAccount} and app_id = #{appId}
+  </update>
+    <select id="selectCountByIdAndPassword" resultType="java.lang.Integer">
+    select count(*) from rc_user where id = #{userId} and password = #{password}
+  </select>
+    <update id="updatePasswordById">
+    update rc_user set password = #{password} where id = #{userId}
+  </update>
+
+    <select id="selectUserGold" resultType="com.rcplatform.livechat.model.User">
+        select id,gold_num from rc_user
+        <if test="gender != null">
+            AND gender = #{gender}
+        </if>
+        <if test="userIdList!=null">
+            AND id IN
+            <foreach collection="userIdList" item="userId" index="index" open="(" close=")" separator=",">
+                #{userId}
+            </foreach>
+        </if>
+    </select>
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rcplatform.livechat.mapper.MatchStatMapper">
+  <resultMap id="BaseResultMap" type="com.rcplatform.livechat.model.MatchStat">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="result" jdbcType="TINYINT" property="result" />
+    <result column="is_pay" jdbcType="TINYINT" property="isPay" />
+    <result column="match_user_id" jdbcType="INTEGER" property="matchUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+</mapper>

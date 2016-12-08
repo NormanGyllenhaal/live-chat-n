@@ -1,0 +1,117 @@
+<div id="main-container">
+    <div id="breadcrumb">
+        <ul class="breadcrumb">
+            <li><i class="fa fa-home"></i>Home</li>
+            <li class="active">添加好友统计</li>
+        </ul>
+    </div><!-- /breadcrumb-->
+    <div class="main-header clearfix">
+        <div class="page-title">
+            <h3 class="no-margin">添加好友数据统计</h3>
+        </div><!-- /page-title -->
+    </div><!-- /main-header -->
+
+    <div class="padding-md">
+        <div class="panel panel-default table-responsive">
+            <div class="panel-heading">
+                实时数据
+                <ul class="tool-bar">
+                    <li ng-click="flush()"><a href="javascript:;" class="refresh-widget" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Refresh">
+                        <i class="fa fa-refresh"></i></a></li>
+                </ul>
+                <!--<span class="label label-info pull-right">790 Items</span>-->
+            </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>匹配环节成为好友总人数</th>
+                    <th>匹配环节成为好友总次数</th>
+                    <th>累计双向好友总数</th>
+                    <th>当日双向好友总数</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{nowData.videoBefriendCount}}</td>
+                    <td>{{nowData.videoBefriendCount/2}}</td>
+                    <td>{{nowData.bothFriendTotal}}</td>
+                    <td>{{nowData.bothFriendDay}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-3">
+                <div class="panel-stat3 bg-danger">
+                    <h2 class="m-top-none" id="userCount">{{videoBefriendCount}}</h2>
+                    <h5>昨日匹配环节成为好友总人数</h5>
+                    <div class="stat-icon">
+                        <i class="fa fa-heart fa-3x"></i>
+                    </div>
+                </div>
+            </div><!-- /.col -->
+            <div class="col-sm-6 col-md-3">
+                <div class="panel-stat3 bg-info">
+                    <h2 class="m-top-none">{{videoBefriendNum}}</h2>
+                    <h5>昨日匹配环节成为好友总次数</h5>
+                    <div class="stat-icon">
+                        <i class="fa fa-heart fa-3x"></i>
+                    </div>
+                </div>
+            </div><!-- /.col -->
+        </div>
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <!--<span class="pull-left"><i class="fa fa-bar-chart-o fa-lg"></i>趋势图</span>-->
+                <form class="form-horizontal">
+                    <fieldset>
+                        <div class="control-group">
+                            <div class="controls">
+                                <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon"><i
+                                        class="glyphicon glyphicon-calendar fa fa-calendar"></i></span><input
+                                        type="text" readonly style="width: 200px" name="reservation" id="friDateRange"
+                                        class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="panel-body" id="trafficWidget">
+                <div id="friChar" style="height:400px;"></div>
+            </div>
+        </div><!-- /panel -->
+
+
+        <div class="panel panel-default table-responsive">
+            <div class="panel-heading">
+                详细
+                <!--<span class="label label-info pull-right">790 Items</span>-->
+            </div>
+            <table class="table table-striped" id="responsiveTable">
+                <thead>
+                <tr>
+                    <th>匹配环节成为好友总人数</th>
+                    <th>匹配环节成为好友总次数</th>
+                    <th>累计双向好友总数</th>
+                    <th>当日双向好友总数</th>
+                    <th>时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="x in data">
+                    <td>{{x.videoBefriendCount}}</td>
+                    <td>{{x.videoBefriendCount/2}}</td>
+                    <td>{{x.bothFriendTotal}}</td>
+                    <td>{{x.bothFriendDay}}</td>
+                    <td>{{x.createTime |  date:'yyyy-MM-dd'}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

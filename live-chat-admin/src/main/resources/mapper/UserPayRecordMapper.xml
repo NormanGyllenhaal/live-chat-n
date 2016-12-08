@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rcplatform.livechat.mapper.UserPayRecordMapper">
+    <resultMap id="BaseResultMap" type="com.rcplatform.livechat.model.UserPayRecord">
+        <!--
+          WARNING - @mbggenerated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="signture" jdbcType="VARCHAR" property="signture"/>
+        <result column="signtureData" jdbcType="VARCHAR" property="signturedata"/>
+        <result column="commodity_id" jdbcType="INTEGER" property="commodityId"/>
+        <result column="gold_num" jdbcType="DECIMAL" property="goldNum"/>
+        <result column="money" jdbcType="DECIMAL" property="money"/>
+        <result column="receipt_data" jdbcType="VARCHAR" property="receiptData"/>
+        <result column="recharge_id" jdbcType="VARCHAR" property="rechargeId"/>
+        <result column="transaction_id" jdbcType="VARCHAR" property="transactionId"/>
+        <result column="verify_result" jdbcType="TINYINT" property="verifyResult"/>
+        <result column="user_device_id" jdbcType="VARCHAR" property="userDeviceId"/>
+        <result column="pay_platform" jdbcType="TINYINT" property="payPlatform"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="verify_time" jdbcType="TIMESTAMP" property="verifyTime"/>
+    </resultMap>
+
+
+    <resultMap id="JoinResultMap" type="com.rcplatform.livechat.dto.response.UserPayRecordAdminDto">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="birthday" property="birthday" jdbcType="DATE"/>
+        <result column="gender" property="gender" jdbcType="TINYINT"/>
+        <result column="commodity_id" jdbcType="INTEGER" property="commodityId"/>
+        <result column="commodity_name" jdbcType="VARCHAR" property="commodityName"/>
+        <result column="gold_num" jdbcType="DECIMAL" property="goldNum"/>
+        <result column="money" jdbcType="DECIMAL" property="money"/>
+        <result column="verify_result" jdbcType="TINYINT" property="verifyResult"/>
+        <result column="user_device_id" jdbcType="VARCHAR" property="userDeviceId"/>
+        <result column="pay_platform" jdbcType="TINYINT" property="payPlatform"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="verify_time" jdbcType="TIMESTAMP" property="verifyTime"/>
+    </resultMap>
+
+    <select id="selectJoinUser" resultMap="JoinResultMap">
+    select a.id,a.user_id,b.user_name,b.birthday,b.gender,a.commodity_id,c.commodity_name,a.gold_num,a.money,a.verify_result,a.user_device_id,a.pay_platform,a.create_time,a.verify_time from rc_user_pay_record  a INNER  JOIN  rc_user b on a.user_id = b.id
+     INNER JOIN  rc_commodity c ON  a.commodity_id = c.id WHERE a.verify_result = 1 AND a.create_time BETWEEN #{beginTime} AND  #{endTime}
+  </select>
+
+</mapper>

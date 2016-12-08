@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rcplatform.livechat.mapper.CommodityMapper">
+  <resultMap id="BaseResultMap" type="com.rcplatform.livechat.model.Commodity">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="app_id" jdbcType="INTEGER" property="appId" />
+    <result column="commodity_name" jdbcType="VARCHAR" property="commodityName" />
+    <result column="commodity_image" jdbcType="VARCHAR" property="commodityImage" />
+    <result column="money" jdbcType="DECIMAL" property="money" />
+    <result column="gold_num" jdbcType="DECIMAL" property="goldNum" />
+    <result column="bonus" jdbcType="TINYINT" property="bonus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+</mapper>

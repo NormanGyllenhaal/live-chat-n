@@ -1,0 +1,164 @@
+<div id="main-container">
+    <div id="breadcrumb">
+        <ul class="breadcrumb">
+            <li><i class="fa fa-home"></i>Home</li>
+            <li class="active">消费统计</li>
+        </ul>
+    </div><!-- /breadcrumb-->
+    <div class="main-header clearfix">
+        <div class="page-title">
+            <h3 class="no-margin">消费统计</h3>
+        </div><!-- /page-title -->
+    </div><!-- /main-header -->
+    <div class="padding-md">
+
+        <div class="panel panel-default table-responsive">
+            <div class="panel-heading">
+                实时数据
+                <ul class="tool-bar">
+                    <li ng-click="flush()"><a href="javascript:;" class="refresh-widget" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Refresh">
+                        <i class="fa fa-refresh"></i></a></li>
+                </ul>
+                <!--<span class="label label-info pull-right">790 Items</span>-->
+            </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>付费加好友人数</th>
+                    <th>付费加好友次数</th>
+                    <th>付费加好友男性人数</th>
+                    <th>付费加好友男性次数</th>
+                    <th>付费加好友女性人数</th>
+                    <th>付费加好友女性次数</th>
+                    <th>匹配消耗金币总数</th>
+                    <th>男性匹配消耗金币总数</th>
+                    <th>女性匹配消耗金币总数</th>
+                    <th>ios消耗金币总数</th>
+                    <th>android消耗金币总数</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{nowData.matchPagePayPeople}}</td>
+                    <td>{{nowData.matchPagePayCount}}</td>
+                    <td>{{nowData.boyPayPeople}}</td>
+                    <td>{{nowData.boyPayCount}}</td>
+                    <td>{{nowData.girlPayPeople}}</td>
+                    <td>{{nowData.girlPayCount}}</td>
+                    <th>{{nowData.matchGold}}</th>
+                    <th>{{nowData.boyMatchGold}}</th>
+                    <th>{{nowData.girlMatchGold}}</th>
+                    <th>{{nowData.iosMatchGold}}</th>
+                    <th>{{nowData.androidMatchGold}}</th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-md-3">
+                <div class="panel-stat3 bg-danger">
+                    <h2 class="m-top-none" id="userCount">{{matchPagePayPeople}}</h2>
+                    <h5>昨日付费加好友人数</h5>
+                    <div class="stat-icon">
+                        <i class="fa fa-money fa-3x"></i>
+                    </div>
+                </div>
+            </div><!-- /.col -->
+            <div class="col-sm-6 col-md-3">
+                <div class="panel-stat3 bg-info">
+                    <h2 class="m-top-none">{{matchPagePayCount}}</h2>
+                    <h5>昨日付费加好友次数</h5>
+                    <div class="stat-icon">
+                        <i class="fa fa-money fa-3x"></i>
+                    </div>
+                </div>
+            </div><!-- /.col -->
+            <div class="col-sm-6 col-md-3">
+                <div class="panel-stat3 bg-warning">
+                    <h2 class="m-top-none" id="orderCount">{{bodyPayCount}}</h2>
+                    <h5>昨日付费加好友男性次数</h5>
+                    <div class="stat-icon">
+                        <i class="fa fa-money fa-3x"></i>
+                    </div>
+                </div>
+            </div><!-- /.col -->
+            <div class="col-sm-6 col-md-3">
+                <div class="panel-stat3 bg-success">
+                    <h2 class="m-top-none" id="visitorCount">{{girlPayCount}}</h2>
+                    <h5>昨日付费加好友女性次数</h5>
+                    <div class="stat-icon">
+                        <i class="fa fa-money fa-3x"></i>
+                    </div>
+                </div>
+            </div><!-- /.col -->
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <!--<span class="pull-left"><i class="fa fa-bar-chart-o fa-lg"></i>趋势图</span>-->
+                <form class="form-horizontal">
+                    <fieldset>
+                        <div class="control-group">
+                            <div class="controls">
+                                <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon"><i
+                                        class="glyphicon glyphicon-calendar fa fa-calendar"></i></span><input
+                                        type="text" readonly style="width: 200px" name="reservation" id="consDateRange"
+                                        class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="panel-body" id="trafficWidget">
+                <div id="consChar" style="height:400px;"></div>
+            </div>
+        </div><!-- /panel -->
+
+
+
+        <div class="panel panel-default table-responsive">
+            <div class="panel-heading">
+                详细
+                <!--<span class="label label-info pull-right">790 Items</span>-->
+            </div>
+            <table class="table table-striped" id="responsiveTable">
+                <thead>
+                <tr>
+                    <th>付费加好友人数</th>
+                    <th>付费加好友次数</th>
+                    <th>付费加好友男性人数</th>
+                    <th>付费加好友男性次数</th>
+                    <th>付费加好友女性人数</th>
+                    <th>付费加好友女性次数</th>
+                    <th>匹配消耗金币总数</th>
+                    <th>男性匹配消耗金币总数</th>
+                    <th>女性匹配消耗金币总数</th>
+                    <th>ios消耗金币总数</th>
+                    <th>android消耗金币总数</th>
+                    <th>时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="x in data">
+                    <td>{{x.matchPagePayPeople}}</td>
+                    <td>{{x.matchPagePayCount}}</td>
+                    <td>{{x.boyPayPeople}}</td>
+                    <td>{{x.boyPayCount}}</td>
+                    <td>{{x.girlPayPeople}}</td>
+                    <td>{{x.girlPayCount}}</td>
+                    <th>{{x.matchGold}}</th>
+                    <th>{{x.boyMatchGold}}</th>
+                    <th>{{x.girlMatchGold}}</th>
+                    <th>{{x.iosMatchGold}}</th>
+                    <th>{{x.androidMatchGold}}</th>
+                    <td>{{x.createTime | date:'yyyy-MM-dd'}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

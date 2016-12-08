@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rcplatform.livechat.mapper.UserStatisticsMapper">
+  <resultMap id="BaseResultMap" type="com.rcplatform.livechat.model.UserStatistics">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_total_num" jdbcType="INTEGER" property="userTotalNum" />
+    <result column="facebook_num" jdbcType="INTEGER" property="facebookNum" />
+    <result column="user_boy_num" jdbcType="INTEGER" property="userBoyNum" />
+    <result column="user_girl_num" jdbcType="INTEGER" property="userGirlNum" />
+    <result column="email_girl_num" jdbcType="INTEGER" property="emailGirlNum" />
+    <result column="email_boy_num" jdbcType="INTEGER" property="emailBoyNum" />
+    <result column="facebook_girl_num" jdbcType="INTEGER" property="facebookGirlNum" />
+    <result column="facebook_boy_num" jdbcType="INTEGER" property="facebookBoyNum" />
+    <result column="new_user_num" jdbcType="INTEGER" property="newUserNum" />
+    <result column="new_facebook_num" jdbcType="INTEGER" property="newFacebookNum" />
+    <result column="new_user_girl_num" jdbcType="INTEGER" property="newUserGirlNum" />
+    <result column="new_user_boy_num" jdbcType="INTEGER" property="newUserBoyNum" />
+    <result column="new_email_girl_num" jdbcType="INTEGER" property="newEmailGirlNum" />
+    <result column="new_email_boy_num" jdbcType="INTEGER" property="newEmailBoyNum" />
+    <result column="new_facebook_boy_num" jdbcType="INTEGER" property="newFacebookBoyNum" />
+    <result column="new_facebook_girl_num" jdbcType="INTEGER" property="newFacebookGirlNum" />
+    <result column="android_user" jdbcType="INTEGER" property="androidUser" />
+    <result column="ios_user" jdbcType="INTEGER" property="iosUser" />
+    <result column="new_android_user" jdbcType="INTEGER" property="newAndroidUser" />
+    <result column="new_ios_user" jdbcType="INTEGER" property="newIosUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <select id="selectBetweenTime" resultMap="BaseResultMap">
+    SELECT * FROM rc_user_statistics WHERE create_time BETWEEN #{beginDate} AND #{endDate} ORDER BY create_time DESC
+  </select>
+
+
+  <select id="selectFromUser" resultMap="BaseResultMap">
+   select * from
+    (select count(*) as user_total_num  from rc_user) as q,
+    (select count(*) as facebook_num from rc_user where type = 2) as a,
+    (select count(*) as user_boy_num from rc_user where gender = 1) as b,
+    (select count(*) as user_girl_num from rc_user where gender = 2) as c,
+    (select count(*) as email_girl_num from rc_user where gender = 2 and type =1) as d,
+    (select count(*) as email_boy_num from rc_user where gender = 1 and type = 1) as e,
+    (select count(*) as facebook_girl_num from rc_user where gender = 2 and type = 2) as f,
+    (select count(*) as facebook_boy_num from rc_user where gender = 1 and type = 2) as g,
+    (select count(*) as new_user_num from rc_user where create_time between #{beginTime} and #{endTime}) as h,
+    (select count(*) as new_facebook_num from rc_user where type = 2 and create_time between #{beginTime} and #{endTime}) as i,
+    (select count(*) as new_user_boy_num from rc_user where gender = 1 and create_time between #{beginTime} and #{endTime}) as j,
+    (select count(*) as new_user_girl_num from rc_user where gender = 2 and create_time between #{beginTime} and #{endTime}) as k,
+    (select count(*) as new_email_girl_num from rc_user where gender = 2 and type =1 and create_time between #{beginTime} and #{endTime}) as l,
+    (select count(*) as new_email_boy_num from rc_user where gender = 1 and type = 1 and create_time between #{beginTime} and #{endTime}) as m,
+    (select count(*) as new_facebook_girl_num from rc_user where gender = 2 and type = 2 and create_time between #{beginTime} and #{endTime}) as n,
+    (select count(*) as new_facebook_boy_num from rc_user where gender = 1 and type = 2 and create_time  between #{beginTime} and #{endTime}) as o,
+    (select count(*) as android_user from rc_user where platform_type = 2) as p,
+    (select count(*) as ios_user from rc_user where platform_type = 1) as t,
+    (select count(*) as new_android_user from rc_user where platform_type = 2 and create_time  between #{beginTime} and #{endTime}) as r,
+    (select count(*) as new_ios_user from rc_user where platform_type = 1 and create_time  between #{beginTime} and #{endTime}) as s
+  </select>
+</mapper>

@@ -1,0 +1,71 @@
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <classPathEntry
+            location="C:\Users\admin\.m2\repository\mysql\mysql-connector-java\5.1.39\mysql-connector-java-5.1.39.jar"/>
+
+    <context id="Mysql" targetRuntime="MyBatis3Simple"
+             defaultModelType="flat">
+
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="com.rcplatform.livechat.common.mybatis.mapper.CommonMapper"/>
+            <!-- caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true -->
+            <property name="caseSensitive" value="true"/>
+        </plugin>
+
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/rc_video_chat" userId="root"
+                        password="rc2016MYSQL@#$%^">
+        </jdbcConnection>
+
+        <javaTypeResolver
+                type="com.rcplatform.livechat.common.mybatis.plugin.JavaTypeResolverImpl">
+            <property name="forceBigDecimals" value="true"/>
+        </javaTypeResolver>
+
+
+        <javaModelGenerator targetPackage="com.rcplatform.livechat.model"
+                            targetProject="F:\ideaproject\live-chat-new\live-chat-model\src\main\java"/>
+
+
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="F:\ideaproject\live-chat-new\live-chat-admin\src\main\resources"/>
+
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.rcplatform.livechat.mapper"
+                             targetProject="F:\ideaproject\live-chat-new\live-chat-admin\src\main\java"/>
+
+
+
+
+
+        <!--<table tableName="rc_push_country" domainObjectName="PushCountry"/>-->
+
+      <!--
+<table tableName="rc_statistics_day" domainObjectName="StatisticsDay"/>
+        <table tableName="rc_match_num_day" domainObjectName="MatchNumDay"/>
+        <table tableName="rc_free_commodity" domainObjectName="FreeCommodity"/>
+       <table tableName="rc_match_stat" domainObjectName="MatchStat"/>
+       <table tableName="rc_report_record" domainObjectName="ReportRecord"></table>
+        <table tableName="rc_report_setting" domainObjectName="ReportSetting"></table>
+        <table tableName="rc_app_version" domainObjectName="AppVersion"/>-->
+
+
+        <table tableName="rc_user_head_img" domainObjectName="UserHeadImg"></table>
+
+
+
+
+
+    </context>
+</generatorConfiguration>

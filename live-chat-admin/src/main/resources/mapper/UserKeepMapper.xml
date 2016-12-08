@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rcplatform.livechat.mapper.UserKeepMapper" >
+  <resultMap id="BaseResultMap" type="com.rcplatform.livechat.model.UserKeep" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="dau_total" property="dauTotal" jdbcType="INTEGER" />
+    <result column="dau_android" property="dauAndroid" jdbcType="INTEGER" />
+    <result column="dau_ios" property="dauIos" jdbcType="INTEGER" />
+    <result column="dau_boy" property="dauBoy" jdbcType="INTEGER" />
+    <result column="dau_girl" property="dauGirl" jdbcType="INTEGER" />
+    <result column="keep_total" property="keepTotal" jdbcType="INTEGER" />
+    <result column="keep_android" property="keepAndroid" jdbcType="INTEGER" />
+    <result column="keep_ios" property="keepIos" jdbcType="INTEGER" />
+    <result column="keep_boy" property="keepBoy" jdbcType="INTEGER" />
+    <result column="keep_girl" property="keepGirl" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <select id="selectUserRecord" resultMap="BaseResultMap">
+        SELECT * FROM (SELECT count(DISTINCT user_id) as dau_total FROM rc_user_record WHERE date(create_time) = curdate()) as a  ,
+       (SELECT count(DISTINCT user_id) as dau_android FROM rc_user_record WHERE date(create_time) = curdate() and device_type =2) as b,
+       (SELECT count(DISTINCT user_id) as dau_ios FROM rc_user_record WHERE date(create_time) = curdate() and device_type = 1) as c,
+       (SELECT count(DISTINCT user_id) as dau_boy FROM rc_user_record WHERE date(create_time) = curdate() and gender = 1) as d,
+       (SELECT count(DISTINCT user_id) as dau_girl FROM rc_user_record WHERE date(create_time) = curdate() and gender = 2) as e,
+       (SELECT count(DISTINCT user_id) as keep_total FROM rc_user_record WHERE date(create_time) = curdate() and type = 2) as f,
+       (SELECT count(DISTINCT user_id) as keep_android FROM rc_user_record WHERE date(create_time) = curdate() and type = 2 and device_type =2) as g,
+       (SELECT count(DISTINCT user_id) as keep_ios FROM rc_user_record WHERE date(create_time) = curdate() and type = 2 and device_type =1) as h,
+       (SELECT count(DISTINCT user_id) as keep_boy FROM rc_user_record WHERE date(create_time) = curdate() and type = 2 and gender = 1) as i,
+       (SELECT count(DISTINCT user_id) as keep_girl FROM rc_user_record WHERE date(create_time) = curdate() and type = 2 and gender = 2) as j
+  </select>
+
+
+
+</mapper>

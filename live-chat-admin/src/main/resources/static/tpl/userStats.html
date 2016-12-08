@@ -1,0 +1,195 @@
+<div id="main-container">
+    <div id="breadcrumb">
+        <ul class="breadcrumb">
+            <li><i class="fa fa-home"></i>Home</li>
+            <li class="active">用户数据统计</li>
+        </ul>
+    </div><!-- /breadcrumb-->
+    <div class="main-header clearfix">
+        <div class="page-title">
+            <h3 class="no-margin">用户数据统计</h3>
+        </div><!-- /page-title -->
+    </div><!-- /main-header -->
+    <div class="padding-md">
+        <div class="panel panel-default table-responsive">
+            <div class="panel-heading">
+                实时数据
+                <ul class="tool-bar">
+                    <li ng-click="flush()"><a href="javascript:;" class="refresh-widget" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Refresh">
+                        <i class="fa fa-refresh"></i></a></li>
+                </ul>
+                <!--<span class="label label-info pull-right">790 Items</span>-->
+            </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>总用户数量</th>
+                    <th>facebook的用户数量</th>
+                    <th>邮箱用户数量</th>
+                    <th>android累计用户数量</th>
+                    <th>ios累计用户数量</th>
+                    <th>男性总用户数量</th>
+                    <th>女性总用户数量</th>
+                    <th>新增用户数量</th>
+                    <th>android新增用户数据</th>
+                    <th>ios新增用户数量</th>
+                    <th>facebook新增人数</th>
+                    <th>新增女性用户数量</th>
+                    <th>新增男性用户数量</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{nowData.userTotalNum}}</td>
+                    <td>{{nowData.facebookNum}}</td>
+                    <td>{{nowData.userTotalNum - nowData.facebookNum}}</td>
+                    <td>{{nowData.androidUser}}</td>
+                    <td>{{nowData.iosUser}}</td>
+                    <td>{{nowData.userBoyNum}}</td>
+                    <td>{{nowData.userGirlNum}}</td>
+                    <td>{{nowData.newUserNum}}</td>
+                    <td>{{nowData.newAndroidUser}}</td>
+                    <td>{{nowData.newIosUser}}</td>
+                    <td>{{nowData.newFacebookNum}}</td>
+                    <td>{{nowData.newUserGirlNum}}</td>
+                    <td>{{nowData.newUserBoyNum}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+
+            <div class="col-sm-6 col-md-3">
+                <div class="panel-stat3 bg-danger">
+                    <h2 class="m-top-none" id="userCount">{{newUserNum}}</h2>
+                    <h5>昨日新增用户</h5>
+                    <div class="stat-icon">
+                        <i class="fa fa-user fa-3x"></i>
+                    </div>
+                </div>
+            </div><!-- /.col -->
+            <div class="col-sm-6 col-md-3">
+                <div class="panel-stat3 bg-info">
+                    <h2 class="m-top-none">{{userTotalNum}}</h2>
+                    <h5>昨日累计用户总量</h5>
+                    <div class="stat-icon">
+                        <i class="fa fa-user fa-3x"></i>
+                    </div>
+                </div>
+            </div><!-- /.col -->
+            <div class="col-sm-6 col-md-3">
+                <div class="panel-stat3 bg-warning">
+                    <h2 class="m-top-none" id="orderCount">{{userBoyNum}}</h2>
+                    <h5>昨日累计男性用户</h5>
+                    <div class="stat-icon">
+                        <i class="fa fa-user fa-3x"></i>
+                    </div>
+                </div>
+            </div><!-- /.col -->
+            <div class="col-sm-6 col-md-3">
+                <div class="panel-stat3 bg-success">
+                    <h2 class="m-top-none" id="visitorCount">{{userGirlNum}}</h2>
+                    <h5>昨日累计女性用户</h5>
+                    <div class="stat-icon">
+                        <i class="fa fa-user fa-3x"></i>
+                    </div>
+                </div>
+            </div><!-- /.col -->
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <!--<span class="pull-left"><i class="fa fa-bar-chart-o fa-lg"></i>趋势图</span>-->
+                <form class="form-horizontal">
+                    <fieldset>
+                        <div class="control-group">
+                            <div class="controls">
+                                <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon"><i
+                                        class="glyphicon glyphicon-calendar fa fa-calendar"></i></span><input
+                                        type="text" readonly style="width: 200px" name="reservation" id="userDateRange"
+                                        class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="panel-body" id="trafficWidget">
+                <div id="userChar" style="height:400px;"></div>
+            </div>
+        </div><!-- /panel -->
+
+        <div class="panel panel-default table-responsive">
+            <div class="panel-heading">
+                详细
+                <!--<span class="label label-info pull-right">790 Items</span>-->
+            </div>
+            <table class="table table-striped" id="responsiveTable">
+                <thead>
+                <tr>
+                    <th>总用户数量</th>
+                    <th>facebook的用户数量</th>
+                    <th>邮箱用户数量</th>
+                    <th>android累计用户数量</th>
+                    <th>ios累计用户数量</th>
+                    <th>男性总用户数量</th>
+                    <th>女性总用户数量</th>
+                    <th>新增用户数量</th>
+                    <th>android新增用户数据</th>
+                    <th>ios新增用户数量</th>
+                    <th>facebook新增人数</th>
+                    <th>新增女性用户数量</th>
+                    <th>新增男性用户数量</th>
+                    <th>时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="x in data">
+                    <td>{{x.userTotalNum}}</td>
+                    <td>{{x.facebookNum}}</td>
+                    <td>{{x.userTotalNum - x.facebookNum}}</td>
+                    <td>{{x.androidUser}}</td>
+                    <td>{{x.iosUser}}</td>
+                    <td>{{x.userBoyNum}}</td>
+                    <td>{{x.userGirlNum}}</td>
+                    <td>{{x.newUserNum}}</td>
+                    <td>{{x.newAndroidUser}}</td>
+                    <td>{{x.newIosUser}}</td>
+                    <td>{{x.newFacebookNum}}</td>
+                    <td>{{x.newUserGirlNum}}</td>
+                    <td>{{x.newUserBoyNum}}</td>
+                    <td>{{x.createTime}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="table table-striped" id="responsiveTable1">
+                <thead>
+                <tr>
+                    <th>邮箱用户女性数量</th>
+                    <th>邮箱用户男性数量</th>
+                    <th>累计facebook女性数量</th>
+                    <th>累计facebook男性数量</th>
+                    <th>新增邮箱女性用户数量</th>
+                    <th>新增邮箱男性用户数量</th>
+                    <th>新增facebook男性用户数量</th>
+                    <th>新增facebook女性用户数量</th>
+                    <th>时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="x in data">
+                    <td>{{x.emailGirlNum}}</td>
+                    <td>{{x.emailBoyNum}}</td>
+                    <td>{{x.facebookGirlNum}}</td>
+                    <td>{{x.facebookBoyNum}}</td>
+                    <td>{{x.newEmailGirlNum}}</td>
+                    <td>{{x.newEmailBoyNum}}</td>
+                    <td>{{x.newFacebookBoyNum}}</td>
+                    <td>{{x.newFacebookGirlNum}}</td>
+                    <td>{{x.createTime}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div><!-- /panel -->
+    </div>
+</div>

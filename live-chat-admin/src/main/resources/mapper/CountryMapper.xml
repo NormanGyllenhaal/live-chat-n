@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rcplatform.livechat.mapper.CountryMapper">
+  <resultMap id="BaseResultMap" type="com.rcplatform.livechat.model.Country">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="country_code" jdbcType="INTEGER" property="countryCode" />
+    <result column="country_name_en" jdbcType="VARCHAR" property="countryNameEn" />
+    <result column="country_name_cn" jdbcType="VARCHAR" property="countryNameCn" />
+    <result column="ab" jdbcType="VARCHAR" property="ab" />
+    <result column="time_difference" jdbcType="TINYINT" property="timeDifference" />
+  </resultMap>
+</mapper>

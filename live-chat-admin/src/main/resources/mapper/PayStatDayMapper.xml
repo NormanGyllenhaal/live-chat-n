@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rcplatform.livechat.mapper.PayStatDayMapper" >
+  <resultMap id="BaseResultMap" type="com.rcplatform.livechat.model.PayStatDay" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="gold_num" property="goldNum" jdbcType="DECIMAL" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <select id="selectPayRecord" resultMap="BaseResultMap">
+     SELECT  IFNULL(SUM(gold_num),0) as gold_num, IFNULL(SUM(money),0) as money, COUNT(*) as count FROM rc_user_pay_record
+      WHERE create_time  between #{beginTime} and #{endTime} and verify_result = 1
+  </select>
+</mapper>

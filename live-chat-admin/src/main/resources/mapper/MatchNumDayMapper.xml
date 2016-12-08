@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rcplatform.livechat.mapper.MatchNumDayMapper">
+  <resultMap id="BaseResultMap" type="com.rcplatform.livechat.model.MatchNumDay">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="match_fail" jdbcType="INTEGER" property="matchFail" />
+    <result column="match_success" jdbcType="INTEGER" property="matchSuccess" />
+    <result column="match_total" jdbcType="INTEGER" property="matchTotal" />
+    <result column="match_boy_count" jdbcType="INTEGER" property="matchBoyCount" />
+    <result column="match_girl_count" jdbcType="INTEGER" property="matchGirlCount" />
+    <result column="match_girl_girl_count" jdbcType="INTEGER" property="matchGirlGirlCount" />
+    <result column="match_boy_girl_count" jdbcType="INTEGER" property="matchBoyGirlCount" />
+    <result column="match_boy_boy_count" jdbcType="INTEGER" property="matchBoyBoyCount" />
+    <result column="match_boy_success_count" jdbcType="INTEGER" property="matchBoySuccessCount" />
+    <result column="match_girl_success_count" jdbcType="INTEGER" property="matchGirlSuccessCount" />
+    <result column="match_pay_people" jdbcType="INTEGER" property="matchPayPeople" />
+    <result column="match_pay_count" jdbcType="INTEGER" property="matchPayCount" />
+    <result column="match_boy_pay_people" jdbcType="INTEGER" property="matchBoyPayPeople" />
+    <result column="match_boy_pay_count" jdbcType="INTEGER" property="matchBoyPayCount" />
+    <result column="match_girl_pay_people" jdbcType="INTEGER" property="matchGirlPayPeople" />
+    <result column="match_girl_pay_count" jdbcType="INTEGER" property="matchGirlPayCount" />
+    <result column="match_android_pay_people" jdbcType="INTEGER" property="matchAndroidPayPeople" />
+    <result column="match_android_pay_count" jdbcType="INTEGER" property="matchAndroidPayCount" />
+    <result column="match_ios_pay_people" jdbcType="INTEGER" property="matchIosPayPeople" />
+    <result column="match_boy_pay_fail_count" jdbcType="INTEGER" property="matchBoyPayFailCount" />
+    <result column="match_boy_pay_success_count" jdbcType="INTEGER" property="matchBoyPaySuccessCount" />
+    <result column="match_girl_pay_fail_count" jdbcType="INTEGER" property="matchGirlPayFailCount" />
+    <result column="match_girl_pay_success_count" jdbcType="INTEGER" property="matchGirlPaySuccessCount" />
+    <result column="match_ios_pay_count" jdbcType="INTEGER" property="matchIosPayCount" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+    <select id="selectJoinMatchStat" resultMap="BaseResultMap">
+    SELECT * FROM
+    (SELECT  COUNT(*) as match_total FROM rc_match_stat WHERE create_time  between #{beginTime} and #{endTime}) as a,
+    (select COUNT(*) as match_success FROM rc_match_stat WHERE result = 1 AND create_time  between #{beginTime} and #{endTime}) as b ,
+    (SELECT  COUNT(*) as match_fail FROM  rc_match_stat WHERE result = 2 AND create_time  between #{beginTime} and #{endTime}) as c,
+    (SELECT  COUNT(*) as match_boy_count FROM rc_match_stat m INNER JOIN rc_user n on m.user_id = n.id WHERE n.gender = 1 AND m.create_time  between #{beginTime} and #{endTime}) as d,
+    (SELECT  COUNT(*) as match_girl_count FROM rc_match_stat m INNER JOIN rc_user n on m.user_id = n.id WHERE n.gender = 2 AND m.create_time  between #{beginTime} and #{endTime}) as e,
+    (SELECT  COUNT(*) as match_girl_girl_count FROM rc_match_stat m INNER JOIN rc_user n on m.user_id = n.id INNER JOIN rc_user o on
+m.match_user_id = o.id  WHERE n.gender = 2 AND o.gender = 2  AND m.create_time  between #{beginTime} and #{endTime}) as f,
+    (select sum(match_boy_girl_count) as match_boy_girl_count from (SELECT  COUNT(*) as match_boy_girl_count FROM rc_match_stat m
+    INNER JOIN rc_user n on m.user_id = n.id INNER JOIN rc_user o on m.match_user_id = o.id  WHERE n.gender = 1 AND o.gender = 2  AND m.create_time  between #{beginTime} and #{endTime}
+      union all  SELECT  COUNT(*) as match_boy_girl_count FROM rc_match_stat m INNER JOIN rc_user n on m.user_id = n.id
+      INNER JOIN rc_user o on m.match_user_id = o.id  WHERE n.gender = 2 AND o.gender = 1  AND m.create_time  between #{beginTime} and #{endTime}) as v) as h,
+    (SELECT  COUNT(*) as match_boy_boy_count FROM rc_match_stat m INNER JOIN rc_user n on m.user_id = n.id INNER JOIN rc_user o on
+m.match_user_id = o.id  WHERE n.gender = 1 AND o.gender = 1  AND m.create_time  between #{beginTime} and #{endTime}) as i,
+    (SELECT  COUNT(*) as match_boy_success_count FROM rc_match_stat m INNER JOIN rc_user n on m.user_id = n.id WHERE n.gender = 1
+    AND m.create_time  between #{beginTime} and #{endTime} AND m.result = 1) as j,
+    (SELECT  COUNT(*) as match_girl_success_count FROM rc_match_stat m INNER JOIN rc_user n on m.user_id = n.id WHERE n.gender = 2 AND
+    m.create_time  between #{beginTime} and #{endTime} AND m.result = 1) as k,
+    (SELECT  count(distinct user_id) as match_pay_people FROM rc_match_stat WHERE is_pay = 1 and create_time  between #{beginTime} and #{endTime}) as l,
+    (SELECT  count(*) as match_pay_count FROM rc_match_stat WHERE is_pay = 1 and create_time  between #{beginTime} and #{endTime}) as m,
+    (SELECT  COUNT(distinct user_id) as match_boy_pay_people FROM rc_match_stat m INNER JOIN rc_user n on m.user_id = n.id
+    WHERE m.is_pay = 1 and  n.gender = 1 AND m.create_time  between #{beginTime} and #{endTime}) as n,
+    (SELECT  COUNT(*) as match_boy_pay_count FROM rc_match_stat m INNER JOIN rc_user n on m.user_id = n.id WHERE m.is_pay = 1 and n.gender = 1
+    AND m.create_time  between #{beginTime} and #{endTime}) as o,
+    (SELECT  COUNT(distinct user_id) as match_girl_pay_people FROM rc_match_stat m INNER JOIN rc_user n on m.user_id = n.id
+    WHERE m.is_pay = 1 and n.gender = 2 AND m.create_time  between #{beginTime} and #{endTime}) as p,
+    (SELECT  COUNT(*) as match_girl_pay_count FROM rc_match_stat m INNER JOIN rc_user n on m.user_id = n.id
+    WHERE m.is_pay = 1 and n.gender = 2 AND m.create_time  between #{beginTime} and #{endTime}) as q,
+    (SELECT  COUNT(distinct user_id) as match_android_pay_people FROM rc_match_stat m INNER JOIN rc_user n on m.user_id = n.id
+    WHERE m.is_pay = 1 and n.platform_type = 2 AND m.create_time  between #{beginTime} and #{endTime}) as r,
+    (SELECT  COUNT(*) as match_android_pay_count FROM rc_match_stat m INNER JOIN rc_user n on m.user_id = n.id
+     WHERE m.is_pay = 1 and n.platform_type = 2 AND m.create_time  between #{beginTime} and #{endTime}) as s,
+    (SELECT  COUNT(distinct user_id) as match_ios_pay_people FROM rc_match_stat m INNER JOIN rc_user n on m.user_id = n.id
+    WHERE m.is_pay = 1 and n.platform_type = 1 AND m.create_time  between #{beginTime} and #{endTime}) as t,
+    (SELECT  COUNT(*) as match_ios_pay_count FROM rc_match_stat m INNER JOIN rc_user n on m.user_id = n.id
+    WHERE m.is_pay = 1 and n.platform_type = 1 AND m.create_time  between #{beginTime} and #{endTime}) as u,
+    (SELECT  COUNT(*) as match_boy_pay_success_count FROM rc_match_stat m INNER JOIN rc_user n on m.user_id = n.id WHERE m.is_pay = 1 and n.gender = 1 and m.result = 1
+      AND m.create_time  between #{beginTime} and #{endTime}) as v,
+    (SELECT  COUNT(*) as match_boy_pay_fail_count FROM rc_match_stat m INNER JOIN rc_user n on m.user_id = n.id WHERE m.is_pay = 1 and n.gender = 1 and m.result = 2
+      AND m.create_time  between #{beginTime} and #{endTime}) as w,
+    (SELECT  COUNT(*) as match_girl_pay_success_count FROM rc_match_stat m INNER JOIN rc_user n on m.user_id = n.id WHERE m.is_pay = 1 and n.gender = 2 and m.result = 1
+      AND m.create_time  between #{beginTime} and #{endTime}) as x,
+    (SELECT  COUNT(*) as match_girl_pay_fail_count FROM rc_match_stat m INNER JOIN rc_user n on m.user_id = n.id WHERE m.is_pay = 1 and n.gender = 2 and m.result = 2
+      AND m.create_time  between #{beginTime} and #{endTime}) as y
+  </select>
+</mapper>
