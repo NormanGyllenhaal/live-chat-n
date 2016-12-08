@@ -16,4 +16,5 @@
      SELECT  IFNULL(SUM(gold_num),0) as gold_num, IFNULL(SUM(money),0) as money, COUNT(*) as count FROM rc_user_pay_record
       WHERE create_time  between #{beginTime} and #{endTime} and verify_result = 1
   </select>
+
 </mapper>
