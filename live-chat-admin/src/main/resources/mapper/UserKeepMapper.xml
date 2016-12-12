@@ -20,16 +20,16 @@
   </resultMap>
 
   <select id="selectUserRecord" resultMap="BaseResultMap">
-        SELECT * FROM (SELECT count(DISTINCT user_id) as dau_total FROM rc_user_record WHERE date(create_time) = curdate()) as a  ,
-       (SELECT count(DISTINCT user_id) as dau_android FROM rc_user_record WHERE date(create_time) = curdate() and device_type =2) as b,
-       (SELECT count(DISTINCT user_id) as dau_ios FROM rc_user_record WHERE date(create_time) = curdate() and device_type = 1) as c,
-       (SELECT count(DISTINCT user_id) as dau_boy FROM rc_user_record WHERE date(create_time) = curdate() and gender = 1) as d,
-       (SELECT count(DISTINCT user_id) as dau_girl FROM rc_user_record WHERE date(create_time) = curdate() and gender = 2) as e,
-       (SELECT count(DISTINCT user_id) as keep_total FROM rc_user_record WHERE date(create_time) = curdate() and type = 2) as f,
-       (SELECT count(DISTINCT user_id) as keep_android FROM rc_user_record WHERE date(create_time) = curdate() and type = 2 and device_type =2) as g,
-       (SELECT count(DISTINCT user_id) as keep_ios FROM rc_user_record WHERE date(create_time) = curdate() and type = 2 and device_type =1) as h,
-       (SELECT count(DISTINCT user_id) as keep_boy FROM rc_user_record WHERE date(create_time) = curdate() and type = 2 and gender = 1) as i,
-       (SELECT count(DISTINCT user_id) as keep_girl FROM rc_user_record WHERE date(create_time) = curdate() and type = 2 and gender = 2) as j
+        SELECT * FROM (SELECT count(DISTINCT user_id) as dau_total FROM rc_user_record WHERE create_time between #{beginTime} and #{endTime}) as a  ,
+       (SELECT count(DISTINCT user_id) as dau_android FROM rc_user_record WHERE create_time between #{beginTime} and #{endTime} and device_type =2) as b,
+       (SELECT count(DISTINCT user_id) as dau_ios FROM rc_user_record WHERE create_time between #{beginTime} and #{endTime} and device_type = 1) as c,
+       (SELECT count(DISTINCT user_id) as dau_boy FROM rc_user_record WHERE create_time between #{beginTime} and #{endTime} and gender = 1) as d,
+       (SELECT count(DISTINCT user_id) as dau_girl FROM rc_user_record WHERE create_time between #{beginTime} and #{endTime} and gender = 2) as e,
+       (SELECT count(DISTINCT user_id) as keep_total FROM rc_user_record WHERE create_time between #{beginTime} and #{endTime} and type = 2) as f,
+       (SELECT count(DISTINCT user_id) as keep_android FROM rc_user_record WHERE create_time between #{beginTime} and #{endTime} and type = 2 and device_type =2) as g,
+       (SELECT count(DISTINCT user_id) as keep_ios FROM rc_user_record WHERE create_time between #{beginTime} and #{endTime} and type = 2 and device_type =1) as h,
+       (SELECT count(DISTINCT user_id) as keep_boy FROM rc_user_record WHERE create_time between #{beginTime} and #{endTime} and type = 2 and gender = 1) as i,
+       (SELECT count(DISTINCT user_id) as keep_girl FROM rc_user_record WHERE create_time between #{beginTime} and #{endTime} and type = 2 and gender = 2) as j
   </select>
 
 

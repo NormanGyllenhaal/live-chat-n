@@ -51,9 +51,12 @@ public class TimedTask {
     @Scheduled(cron="0 0 0 * * ?")
     public void userStatisticsTask() {
         Date endDate = new Date();
+        Date beginDate = DateUtil.getDatePlusDays(endDate,-1);
         UserStatistics userStatistics = userStatisticsMapper.selectFromUser(DateUtil.getDatePlusDays(endDate,-1),endDate);
+        userStatistics.setCreateTime(beginDate);
         userStatisticsMapper.insertSelective(userStatistics);
-        UserKeep userKeep = userKeepMapper.selectUserRecord();
+        UserKeep userKeep = userKeepMapper.selectUserRecord(DateUtil.getDatePlusDays(endDate,-1),endDate);
+        userKeep.setCreateTime(beginDate);
         userKeepMapper.insertSelective(userKeep);
     }
 
@@ -62,10 +65,11 @@ public class TimedTask {
     @Scheduled(cron="0 0 0 * * ?")
     public void statisticsDayTask(){
         Date endDate = new Date();
-        StatisticsDay statisticsDay = statisticsDayMapper.selectFromVideoRecord(DateUtil.getDatePlusDays(endDate,-1),endDate);
-        Integer videoBefriendCount = statisticsDayMapper.selectFromAddFriendRecord(DateUtil.getDatePlusDays(endDate,-1),endDate);
-        StatisticsDay consumeRecode = statisticsDayMapper.selectFromConsumeRecord(DateUtil.getDatePlusDays(endDate,-1),endDate);
-        StatisticsDay bothFriendStatistics = statisticsDayMapper.selectUserFriend(DateUtil.getDatePlusDays(endDate,-1),endDate);
+        Date beginDate = DateUtil.getDatePlusDays(endDate,-1);
+        StatisticsDay statisticsDay = statisticsDayMapper.selectFromVideoRecord(beginDate,endDate);
+        Integer videoBefriendCount = statisticsDayMapper.selectFromAddFriendRecord(beginDate,endDate);
+        StatisticsDay consumeRecode = statisticsDayMapper.selectFromConsumeRecord(beginDate,endDate);
+        StatisticsDay bothFriendStatistics = statisticsDayMapper.selectUserFriend(beginDate,endDate);
         statisticsDay.setVideoBefriendCount(videoBefriendCount);
         statisticsDay.setMatchPagePayPeople(consumeRecode.getMatchPagePayPeople());
         statisticsDay.setMatchPagePayCount(consumeRecode.getMatchPagePayCount());
@@ -81,6 +85,7 @@ public class TimedTask {
         statisticsDay.setFriendVideoCount(statisticsDay.getFriendVideoPeople()/2);
         statisticsDay.setBothFriendTotal(bothFriendStatistics.getBothFriendTotal());
         statisticsDay.setBothFriendDay(bothFriendStatistics.getBothFriendDay());
+        statisticsDay.setCreateTime(beginDate);
         statisticsDayMapper.insertSelective(statisticsDay);
     }
 
@@ -89,7 +94,9 @@ public class TimedTask {
     @Scheduled(cron="0 0 0 * * ?")
     public void payStatDayTask(){
         Date endDate = new Date();
-        PayStatDay payStatDay = payStatDayMapper.selectPayRecord(DateUtil.getDatePlusDays(endDate,-1),endDate);
+        Date beginDate = DateUtil.getDatePlusDays(endDate,-1);
+        PayStatDay payStatDay = payStatDayMapper.selectPayRecord(beginDate,endDate);
+        payStatDay.setCreateTime(beginDate);
         payStatDayMapper.insertSelective(payStatDay);
     }
 
@@ -98,7 +105,9 @@ public class TimedTask {
     @Scheduled(cron="0 0 0 * * ?")
     public void matchNumDayTask(){
         Date endDate = new Date();
-        MatchNumDay matchNumDay = matchNumDayMapper.selectJoinMatchStat(DateUtil.getDatePlusDays(endDate,-1),endDate);
+        Date beginDate = DateUtil.getDatePlusDays(endDate,-1);
+        MatchNumDay matchNumDay = matchNumDayMapper.selectJoinMatchStat(beginDate,endDate);
+        matchNumDay.setCreateTime(beginDate);
         matchNumDayMapper.insertSelective(matchNumDay);
     }
 
