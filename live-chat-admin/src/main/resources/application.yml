@@ -36,7 +36,9 @@ spring:
         maxOpenPreparedStatements: 20
     profiles:
         default: production
-
+ios:
+    password: 11111111
+    path: /usr/local/tomcat/spring-boot-admin/livechat_distribution_push.p12
 #以下属性不可用
 #mybatis:
 #    pagehelper:

@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class IosPushConfig {
 
-    @Value("11111111")
+    @Value("${ios.password}")
     private String password;
 
-    @Value("F:/gaea/service/deploy/VideoChatApp/livechat_distribution_push.p12")
+    @Value("${ios.path}")
     private String iosPushPath;
 
     @Bean
