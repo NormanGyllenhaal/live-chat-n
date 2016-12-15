@@ -201,7 +201,8 @@ public class StatisticsDayServiceImpl extends AbstractService implements IStatis
      */
     @Override
     public UserKeep getUserKeepNow(Integer adminId) {
-        return userKeepMapper.selectUserRecord();
+        Date endDate = new Date();
+        return userKeepMapper.selectUserRecord(DateUtil.getDay(endDate),endDate);
     }
 
 
