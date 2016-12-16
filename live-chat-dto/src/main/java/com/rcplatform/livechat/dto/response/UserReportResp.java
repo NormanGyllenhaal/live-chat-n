@@ -91,13 +91,16 @@ public class UserReportResp {
     /**
      * 消费金币数
      */
-    private Integer consumeGold;
-
+    private Integer consumeNum;
 
     /**
      * 朋友数量
      */
     private Integer friendNum;
+
+
+
+    private Integer reportNum;
 
 
     public Integer getId() {
@@ -228,12 +231,12 @@ public class UserReportResp {
         this.updateTime = updateTime;
     }
 
-    public Integer getConsumeGold() {
-        return consumeGold;
+    public Integer getConsumeNum() {
+        return consumeNum;
     }
 
-    public void setConsumeGold(Integer consumeGold) {
-        this.consumeGold = consumeGold;
+    public void setConsumeNum(Integer consumeNum) {
+        this.consumeNum = consumeNum;
     }
 
     public Integer getFriendNum() {
@@ -242,5 +245,13 @@ public class UserReportResp {
 
     public void setFriendNum(Integer friendNum) {
         this.friendNum = friendNum;
+    }
+
+    public Integer getReportNum() {
+        return reportNum;
+    }
+
+    public void setReportNum(Integer reportNum) {
+        this.reportNum = reportNum;
     }
 }

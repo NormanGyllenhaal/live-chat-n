@@ -1,30 +1,24 @@
 package com.rcplatform.livechat.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.google.common.base.Function;
 import com.google.common.base.Joiner;
+import com.google.common.collect.Lists;
 import com.rcplatform.livechat.common.enums.IsPushEnum;
 import com.rcplatform.livechat.common.response.Page;
 import com.rcplatform.livechat.common.util.DateUtil;
 import com.rcplatform.livechat.dto.request.PushDto;
-import com.rcplatform.livechat.mapper.CountryMapper;
-import com.rcplatform.livechat.mapper.PushCountryMapper;
-import com.rcplatform.livechat.mapper.PushLanguageMapper;
-import com.rcplatform.livechat.mapper.PushMapper;
-import com.rcplatform.livechat.model.Country;
-import com.rcplatform.livechat.model.Push;
-import com.rcplatform.livechat.model.PushCountry;
-import com.rcplatform.livechat.model.PushLanguage;
+import com.rcplatform.livechat.mapper.*;
+import com.rcplatform.livechat.model.*;
 import com.rcplatform.livechat.service.AbstractService;
 import com.rcplatform.livechat.service.IPushService;
 import org.apache.commons.collections.map.HashedMap;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Administrator on 2016/9/11.
@@ -34,6 +28,9 @@ public class PushServiceImpl extends AbstractService implements IPushService {
 
     @Resource
     private PushMapper pushMapper;
+
+    @Resource
+    private PushUserMapper pushUserMapper;
 
     @Resource
     private PushLanguageMapper pushLanguageMapper;
@@ -53,6 +50,16 @@ public class PushServiceImpl extends AbstractService implements IPushService {
     @Override
     public void addPush(final PushDto pushDto) {
         pushMapper.insertSelective(pushDto);
+        if(StringUtils.isNotEmpty(pushDto.getUserIdList())){
+            List<String> strings = Arrays.asList(pushDto.getUserIdList().split(","));
+            List<PushUser> pushUsers = Lists.transform(strings, new Function<String, PushUser>() {
+                @Override
+                public PushUser apply(String input) {
+                    return new PushUser(pushDto.getId(), Integer.parseInt(input));
+                }
+            });
+            pushUserMapper.insertListIgnore(pushUsers);
+        }
         List<PushLanguage> pushLanguages = pushDto.getPushLanguages();
         for (PushLanguage pushLanguage : pushLanguages) {
             pushLanguage.setCreateTime(new Date());

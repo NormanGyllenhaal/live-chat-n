@@ -9,6 +9,23 @@ import java.io.Serializable;
 @Table(name = "rc_push_user")
 
 public class PushUser implements Serializable {
+
+
+    public PushUser(Integer id, Integer pushId, Integer userId) {
+        this.id = id;
+        this.pushId = pushId;
+        this.userId = userId;
+    }
+
+
+    public PushUser(Integer pushId, Integer userId) {
+        this.pushId = pushId;
+        this.userId = userId;
+    }
+
+    public PushUser() {
+    }
+
     /**
      * 主键
      */

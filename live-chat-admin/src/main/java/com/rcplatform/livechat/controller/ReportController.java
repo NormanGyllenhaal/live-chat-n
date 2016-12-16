@@ -4,9 +4,8 @@ package com.rcplatform.livechat.controller;
 import com.rcplatform.livechat.common.response.Page;
 import com.rcplatform.livechat.dto.request.ReportAdminReqDto;
 import com.rcplatform.livechat.dto.request.ReportPutDto;
-import com.rcplatform.livechat.dto.response.UserResp;
+import com.rcplatform.livechat.dto.response.UserReportResp;
 import com.rcplatform.livechat.model.ReportRecord;
-import com.rcplatform.livechat.model.User;
 import com.rcplatform.livechat.service.IReportService;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,7 +60,7 @@ public class ReportController {
 
     @RequestMapping(value="reportRecord",method = RequestMethod.GET)
     @ResponseBody
-    public List<UserResp> getOffUser() {
+    public List<UserReportResp> getOffUser() {
        return reportService.getOffUser();
     }
 
@@ -75,7 +74,7 @@ public class ReportController {
      */
     @RequestMapping(value="image")
     @ResponseBody
-    public List<UserResp> deleteReportImage(@RequestBody ReportPutDto reportPutDto){
+    public List<UserReportResp> deleteReportImage(@RequestBody ReportPutDto reportPutDto){
         return reportService.deleteReportImage(reportPutDto);
     }
 

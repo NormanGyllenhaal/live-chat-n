@@ -17,6 +17,10 @@ public class PushDto extends Push {
     private Integer adminId;
 
 
+
+    private String userIdList;
+
+
     private List<PushLanguage> pushLanguages;
 
 
@@ -29,6 +33,14 @@ public class PushDto extends Push {
         this.adminId = adminId;
     }
 
+
+    public String getUserIdList() {
+        return userIdList;
+    }
+
+    public void setUserIdList(String userIdList) {
+        this.userIdList = userIdList;
+    }
 
     public List<PushLanguage> getPushLanguages() {
         return pushLanguages;

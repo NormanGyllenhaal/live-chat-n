@@ -51,6 +51,7 @@
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
         <result column="consumeNum" property="consumeNum" jdbcType="INTEGER"/>
         <result column="friendNum" property="friendNum" jdbcType="INTEGER"/>
+        <result column="reportNum" property="reportNum" jdbcType="INTEGER"/>
     </resultMap>
 
 
@@ -82,10 +83,11 @@
 
 
     <select id="selectJoin" resultMap="JoinResultMap">
-        select a.id,a.user_account,a.user_name,a.head_img,a.background,a.gender,a.country_name,a.language_name,a.gold_num,a.platform_type,a.birthday,a.create_time,a.update_time,
-        sum(d.price) as consumeNum,count(c.user_friend_id) as friendNum
+        select a.id,a.user_account,a.user_name,a.head_img,a.background,a.gender,a.country_name,a.language_name,a.gold_num,a.platform_type,a.birthday,
+        a.create_time,a.update_time,
+        IFNULL(sum(d.price),0) as consumeNum,count(c.user_friend_id) as friendNum,count(f.use_id) as reportNum
         from rc_user a left join rc_consume_record b on a.id = b.user_id left join
-        rc_user_friend c on a.id = c.user_id left join rc_consume d on b.consume_id = d.id where d.type in (2,3) and a.id in
+        rc_user_friend c on a.id = c.user_id left join rc_consume d on b.consume_id = d.id left join rc_report_record f on a.id = f.use_id where  a.id in
         <foreach collection="userIdList" item="userId" index="index" open="(" close=")" separator=",">
             #{userId}
         </foreach> group by a.id
