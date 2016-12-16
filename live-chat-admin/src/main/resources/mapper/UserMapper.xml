@@ -29,6 +29,31 @@
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
     </resultMap>
+
+    <resultMap id="JoinResultMap" type="com.rcplatform.livechat.dto.response.UserReportResp">
+        <!--
+          WARNING - @mbggenerated
+        -->
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="user_account" property="userAccount" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="background" property="background" jdbcType="VARCHAR"/>
+        <result column="head_img" property="headImg" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="TINYINT"/>
+        <result column="country_id" property="countryId" jdbcType="TINYINT"/>
+        <result column="country_name" property="countryName" jdbcType="VARCHAR"/>
+        <result column="gold_num" property="goldNum" jdbcType="DECIMAL"/>
+        <result column="language_id" property="languageId" jdbcType="VARCHAR"/>
+        <result column="language_name" property="languageName" jdbcType="VARCHAR"/>
+        <result column="birthday" property="birthday" jdbcType="DATE"/>
+        <result column="platform_type" property="platformType" jdbcType="TINYINT"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="consumeNum" property="consumeNum" jdbcType="INTEGER"/>
+        <result column="friendNum" property="friendNum" jdbcType="INTEGER"/>
+    </resultMap>
+
+
     <select id="selectByThreePartyId" resultType="com.rcplatform.livechat.model.User">
     select * from rc_user where three_party_id = #{threePartyId} and app_id = #{appId}
   </select>
@@ -53,5 +78,16 @@
                 #{userId}
             </foreach>
         </if>
+    </select>
+
+
+    <select id="selectJoin" resultMap="JoinResultMap">
+        select a.id,a.user_account,a.user_name,a.head_img,a.background,a.gender,a.country_name,a.language_name,a.gold_num,a.platform_type,a.birthday,a.create_time,a.update_time,
+        sum(d.price) as consumeNum,count(c.user_friend_id) as friendNum
+        from rc_user a left join rc_consume_record b on a.id = b.user_id left join
+        rc_user_friend c on a.id = c.user_id left join rc_consume d on b.consume_id = d.id where d.type in (2,3) and a.id in
+        <foreach collection="userIdList" item="userId" index="index" open="(" close=")" separator=",">
+            #{userId}
+        </foreach> group by a.id
     </select>
 </mapper>

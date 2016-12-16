@@ -2,9 +2,6 @@ package com.rcplatform.livechat.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.rcplatform.livechat.common.enums.ReportHandleWayEnum;
 import com.rcplatform.livechat.common.enums.ReportIsHandleEnum;
@@ -24,8 +21,6 @@ import com.rcplatform.livechat.model.ReportRecord;
 import com.rcplatform.livechat.model.User;
 import com.rcplatform.livechat.service.AbstractService;
 import com.rcplatform.livechat.service.IReportService;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -34,12 +29,13 @@ import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.SessionCallback;
 import org.springframework.stereotype.Service;
-
-import org.springframework.web.bind.annotation.RequestBody;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 import static com.rcplatform.livechat.common.constant.RedisKeyConstant.*;
 import static com.rcplatform.livechat.common.util.RedisKeyFactory.getKey;
@@ -152,13 +148,7 @@ public class ReportServiceImpl extends AbstractService implements IReportService
         Example example = new Example(User.class);
         example.createCriteria().andIn("id",userIdList);
         List<User> list = userMapper.selectByExample(example);
-        final Collection<User> filter = Collections2.filter(list, new Predicate<User>() {
-            @Override
-            public boolean apply(User input) {
-                return StringUtils.isNotEmpty(input.getBackground()) || StringUtils.isNotEmpty(input.getHeadImg());
-            }
-        });
-        List<UserResp> transform = Lists.transform(new ArrayList<>(filter), new Function<User, UserResp>() {
+        List<UserResp> transform = Lists.transform(list, new Function<User, UserResp>() {
             @Override
             public UserResp apply(User input) {
                 int count = reportRecordMapper.selectCount(new ReportRecord(input.getId()));
