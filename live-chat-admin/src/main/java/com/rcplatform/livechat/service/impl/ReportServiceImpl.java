@@ -1,8 +1,6 @@
 package com.rcplatform.livechat.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.google.common.base.Function;
-import com.google.common.collect.Lists;
 import com.rcplatform.livechat.common.enums.ReportHandleWayEnum;
 import com.rcplatform.livechat.common.enums.ReportIsHandleEnum;
 import com.rcplatform.livechat.common.enums.ReportPageEnum;
@@ -12,7 +10,7 @@ import com.rcplatform.livechat.common.util.DateUtil;
 import com.rcplatform.livechat.common.util.StringUtil;
 import com.rcplatform.livechat.dto.request.ReportAdminReqDto;
 import com.rcplatform.livechat.dto.request.ReportPutDto;
-import com.rcplatform.livechat.dto.response.UserResp;
+import com.rcplatform.livechat.dto.response.UserReportResp;
 import com.rcplatform.livechat.mapper.ReportMapper;
 import com.rcplatform.livechat.mapper.ReportRecordMapper;
 import com.rcplatform.livechat.mapper.UserMapper;
@@ -23,13 +21,11 @@ import com.rcplatform.livechat.service.AbstractService;
 import com.rcplatform.livechat.service.IReportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.SessionCallback;
 import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -140,31 +136,19 @@ public class ReportServiceImpl extends AbstractService implements IReportService
 
 
     @Override
-    public List<UserResp> getOffUser() {
+    public List<UserReportResp> getOffUser() {
         final String systemReportKey = StringUtil.buildString(APP_NAME, REPORT);
         Set<Integer> set = redisTemplate.opsForSet().members(systemReportKey);
         List<Integer> userIdList = new ArrayList<>();
         userIdList.addAll(set);
-        Example example = new Example(User.class);
-        example.createCriteria().andIn("id",userIdList);
-        List<User> list = userMapper.selectByExample(example);
-        List<UserResp> transform = Lists.transform(list, new Function<User, UserResp>() {
-            @Override
-            public UserResp apply(User input) {
-                int count = reportRecordMapper.selectCount(new ReportRecord(input.getId()));
-                UserResp userResp = new UserResp();
-                BeanUtils.copyProperties(input,userResp);
-                userResp.setReportCount(count);
-                return userResp;
-            }
-        });
-        return transform;
+        List<UserReportResp> list = userMapper.selectJoin(userIdList);
+        return list;
     }
 
 
 
     @Override
-    public List<UserResp> deleteReportImage( ReportPutDto reportPutDto) {
+    public List<UserReportResp> deleteReportImage( ReportPutDto reportPutDto) {
         if(reportPutDto.getType().equals(ReportHandleWayEnum.HEAD_IMG.key())){
             userMapper.updateByPrimaryKeySelective(new User(reportPutDto.getUserId(),null,"",new Date()));
         }else if(reportPutDto.getType().equals(ReportHandleWayEnum.BACKGROUND.key())){

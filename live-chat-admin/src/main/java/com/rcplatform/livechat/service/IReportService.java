@@ -4,10 +4,8 @@ package com.rcplatform.livechat.service;
 import com.rcplatform.livechat.common.response.Page;
 import com.rcplatform.livechat.dto.request.ReportAdminReqDto;
 import com.rcplatform.livechat.dto.request.ReportPutDto;
-import com.rcplatform.livechat.dto.response.UserResp;
+import com.rcplatform.livechat.dto.response.UserReportResp;
 import com.rcplatform.livechat.model.ReportRecord;
-import com.rcplatform.livechat.model.User;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -34,7 +32,7 @@ public interface IReportService {
      * 查看当前被封号的用户
      * @return
      */
-    List<UserResp> getOffUser();
+    List<UserReportResp> getOffUser();
 
 
     /**
@@ -42,7 +40,7 @@ public interface IReportService {
      * @param reportPutDto
      * @return
      */
-    List<UserResp> deleteReportImage( ReportPutDto reportPutDto);
+    List<UserReportResp> deleteReportImage(ReportPutDto reportPutDto);
 
 
     /**

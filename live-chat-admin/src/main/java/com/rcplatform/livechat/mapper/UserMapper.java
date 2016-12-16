@@ -2,6 +2,7 @@ package com.rcplatform.livechat.mapper;
 
 
 import com.rcplatform.livechat.common.mybatis.mapper.CommonMapper;
+import com.rcplatform.livechat.dto.response.UserReportResp;
 import com.rcplatform.livechat.model.User;
 import org.apache.ibatis.annotations.Param;
 
@@ -49,4 +50,9 @@ public interface UserMapper extends CommonMapper<User> {
 
 
     List<User> selectUserGold(@Param("gender") Integer gender, @Param("userIdList") List<Integer> userIdList);
+
+
+
+
+    List<UserReportResp> selectJoin(@Param("userIdList")List<Integer> userIdList);
 }
