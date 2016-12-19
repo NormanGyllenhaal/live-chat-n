@@ -141,10 +141,13 @@ public class PushTask {
                             users = userMapper.selectUserGold(null,userIdList);
                             break;
                     }
+                    logger.info("用户"+users);
                     if(CollectionUtils.isNotEmpty(users)){
                         for(User user:users){
-                            BigDecimal gold = user.getGoldNum().add(push.getGold());
-                            userMapper.updateByPrimaryKey(new User(user.getId(),gold,new Date()));
+                            if(user!=null){
+                                BigDecimal gold = user.getGoldNum().add(push.getGold());
+                                userMapper.updateByPrimaryKeySelective(new User(user.getId(),gold,new Date()));
+                            }
                         }
                     }
                 }

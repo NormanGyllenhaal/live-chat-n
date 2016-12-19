@@ -68,7 +68,7 @@
     update rc_user set password = #{password} where id = #{userId}
   </update>
 
-    <select id="selectUserGold" resultType="com.rcplatform.livechat.model.User">
+    <select id="selectUserGold" resultMap="BaseResultMap">
         select id,gold_num from rc_user
         <where>
             <if test="gender != null">

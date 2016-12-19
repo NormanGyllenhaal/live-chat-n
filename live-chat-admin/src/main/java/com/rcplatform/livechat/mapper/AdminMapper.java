@@ -8,5 +8,5 @@ import org.apache.ibatis.annotations.Param;
 public interface AdminMapper extends CommonMapper<Admin> {
 
 
-    AdminFunctionDto selectJoinFunction(@Param("email") String email,@Param("password") String password);
+    AdminFunctionDto selectJoinFunction(@Param("email") String email, @Param("password") String password);
 }

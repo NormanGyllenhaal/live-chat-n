@@ -22,7 +22,7 @@
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <collection property="list" ofType="com.rcplatform.livechat.model.AdminFunction">
+    <collection ofType="com.rcplatform.livechat.model.AdminFunction" property="list">
       <id column="b_id" jdbcType="INTEGER" property="id" />
       <result column="b_role_id" jdbcType="INTEGER" property="roleId" />
       <result column="icon" jdbcType="VARCHAR" property="icon" />
