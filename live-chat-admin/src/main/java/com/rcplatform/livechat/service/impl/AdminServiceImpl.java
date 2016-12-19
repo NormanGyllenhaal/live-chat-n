@@ -6,6 +6,7 @@ import com.rcplatform.livechat.common.enums.StatEnum;
 import com.rcplatform.livechat.common.exception.BaseException;
 import com.rcplatform.livechat.common.util.MD5;
 import com.rcplatform.livechat.common.util.StringUtil;
+import com.rcplatform.livechat.dto.response.AdminFunctionDto;
 import com.rcplatform.livechat.mapper.AdminMapper;
 import com.rcplatform.livechat.model.Admin;
 import com.rcplatform.livechat.service.AbstractService;
@@ -32,14 +33,14 @@ public class AdminServiceImpl extends AbstractService implements IAdminService {
 
 
     @Override
-    public Admin login(String email, String password) throws BaseException {
-        Admin admin = adminMapper.selectOne(new Admin(MD5.getMD5Code(password), email));
-        if(admin==null){
+    public AdminFunctionDto login(String email, String password) throws BaseException {
+        AdminFunctionDto adminFunctionDto = adminMapper.selectJoinFunction(email, password);
+        if(adminFunctionDto ==null){
             throw new BaseException(StatEnum.PASSWORD_ERROR);
         }
         String adminKey = StringUtil.buildString(RedisKeyConstant.APP_NAME, RedisKeyConstant.ADMIN);
-        redisTemplate.opsForSet().add(adminKey,admin.getId().toString());
-        return admin;
+        redisTemplate.opsForSet().add(adminKey,adminFunctionDto.getId().toString());
+        return adminFunctionDto;
     }
 
 
@@ -49,6 +50,7 @@ public class AdminServiceImpl extends AbstractService implements IAdminService {
         admin.setPassword(null);
         return admin;
     }
+
 
 
     @Override

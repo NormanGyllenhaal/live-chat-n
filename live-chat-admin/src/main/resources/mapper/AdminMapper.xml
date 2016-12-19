@@ -8,8 +8,31 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
+
+  <resultMap id="JoinResultMap" type="com.rcplatform.livechat.dto.response.AdminFunctionDto">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <collection property="list" ofType="com.rcplatform.livechat.model.AdminFunction">
+      <id column="b_id" jdbcType="INTEGER" property="id" />
+      <result column="b_role_id" jdbcType="INTEGER" property="roleId" />
+      <result column="icon" jdbcType="VARCHAR" property="icon" />
+      <result column="name" jdbcType="VARCHAR" property="name" />
+      <result column="url" jdbcType="VARCHAR" property="url" />
+    </collection>
+  </resultMap>
+
+  <select id="selectJoinFunction" resultMap="JoinResultMap">
+    select a.*,b.id as b_id,b.role_id as b_role_id,b.icon,b.name,b.url from rc_admin a left join rc_admin_function b on a.role_id = b.role_id
+    where a.email = #{email} and a.password = #{password}
+  </select>
 </mapper>

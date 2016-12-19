@@ -37,7 +37,6 @@ public class Push implements Serializable {
      * 应用id
      */
     @Column(name = "app_id")
-    @NotNull
     private Integer appId;
 
     /**
@@ -70,6 +69,7 @@ public class Push implements Serializable {
      * 推送的时间
      */
     @Column(name = "push_time")
+    @NotNull
     private Date pushTime;
 
     /**

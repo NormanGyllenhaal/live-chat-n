@@ -2,6 +2,7 @@ package com.rcplatform.livechat.controller;
 
 
 import com.rcplatform.livechat.common.exception.BaseException;
+import com.rcplatform.livechat.dto.response.AdminFunctionDto;
 import com.rcplatform.livechat.model.Admin;
 import com.rcplatform.livechat.service.IAdminService;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class AdminController {
      */
     @RequestMapping(value="login",method = RequestMethod.POST)
     @ResponseBody
-    public Admin login(@RequestBody Admin admin) throws BaseException {
+    public AdminFunctionDto login(@RequestBody Admin admin) throws BaseException {
        return  adminService.login(admin.getEmail(), admin.getPassword());
     }
 

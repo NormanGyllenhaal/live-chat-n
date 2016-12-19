@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * Created by Administrator on 2016/9/10.
@@ -25,7 +26,7 @@ public class PushController extends BaseController{
 
     @RequestMapping("addPush")
     @ResponseBody
-    public Response<Object> addPush(@RequestBody PushDto pushDto){
+    public Response<Object> addPush(@RequestBody @Valid PushDto pushDto){
         pushService.addPush(pushDto);
         return success(null);
     }

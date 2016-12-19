@@ -70,15 +70,17 @@
 
     <select id="selectUserGold" resultType="com.rcplatform.livechat.model.User">
         select id,gold_num from rc_user
-        <if test="gender != null">
-            AND gender = #{gender}
-        </if>
-        <if test="userIdList!=null">
-            AND id IN
-            <foreach collection="userIdList" item="userId" index="index" open="(" close=")" separator=",">
-                #{userId}
-            </foreach>
-        </if>
+        <where>
+            <if test="gender != null">
+                AND gender = #{gender}
+            </if>
+            <if test="userIdList!=null">
+                AND id IN
+                <foreach collection="userIdList" item="userId" index="index" open="(" close=")" separator=",">
+                    #{userId}
+                </foreach>
+            </if>
+        </where>
     </select>
 
 

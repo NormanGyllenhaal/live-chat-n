@@ -1,7 +1,5 @@
 package com.rcplatform.livechat.model;
 
-
-
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -9,7 +7,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Table(name = "rc_admin")
-
 public class Admin implements Serializable {
 
     public Admin() {
@@ -36,33 +33,34 @@ public class Admin implements Serializable {
      * 管理员用户名
      */
     @Column(name = "user_name")
-
     private String userName;
 
     /**
      * 管理员密码
      */
-
     private String password;
+
+    /**
+     * 管理员角色id
+     */
+    @Column(name = "role_id")
+    private Integer roleId;
 
     /**
      * 管理员邮箱
      */
-
     private String email;
 
     /**
      * 创建时间
      */
     @Column(name = "create_time")
-
     private Date createTime;
 
     /**
      * 更新时间
      */
     @Column(name = "update_time")
-
     private Date updateTime;
 
     private static final long serialVersionUID = 1L;
@@ -119,6 +117,24 @@ public class Admin implements Serializable {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * 获取管理员角色id
+     *
+     * @return role_id - 管理员角色id
+     */
+    public Integer getRoleId() {
+        return roleId;
+    }
+
+    /**
+     * 设置管理员角色id
+     *
+     * @param roleId 管理员角色id
+     */
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
     /**
@@ -184,6 +200,7 @@ public class Admin implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", userName=").append(userName);
         sb.append(", password=").append(password);
+        sb.append(", roleId=").append(roleId);
         sb.append(", email=").append(email);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);

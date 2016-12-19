@@ -58,12 +58,12 @@
        <table tableName="rc_match_stat" domainObjectName="MatchStat"/>
        <table tableName="rc_report_record" domainObjectName="ReportRecord"></table>
         <table tableName="rc_report_setting" domainObjectName="ReportSetting"></table>
-        <table tableName="rc_app_version" domainObjectName="AppVersion"/>-->
+        <table tableName="rc_app_version" domainObjectName="AppVersion"/>
+         <table tableName="rc_user_head_img" domainObjectName="UserHeadImg"></table>
+        -->
 
-
-        <table tableName="rc_user_head_img" domainObjectName="UserHeadImg"></table>
-
-
+        <table tableName="rc_admin" domainObjectName="Admin"/>
+        <table tableName="rc_admin_function" domainObjectName="AdminFunction"/>
 
 
 

@@ -2,6 +2,7 @@ package com.rcplatform.livechat.service;
 
 
 import com.rcplatform.livechat.common.exception.BaseException;
+import com.rcplatform.livechat.dto.response.AdminFunctionDto;
 import com.rcplatform.livechat.model.Admin;
 
 /**
@@ -15,7 +16,7 @@ public interface IAdminService {
      * @param password
      * @return
      */
-    Admin login(String email, String password) throws BaseException;
+    AdminFunctionDto login(String email, String password) throws BaseException;
 
 
     /**
