@@ -18,4 +18,28 @@
     <result column="type" jdbcType="TINYINT" property="type" />
     <result column="version" jdbcType="INTEGER" property="version" />
   </resultMap>
+
+  <select id="selectByUserHeadImg">
+    select a.* from rc_user_headImg a inner join rc_user b on a.user_id = b.id
+    <where>
+      <if test="gender!=null">
+        a.gender = #{gender}
+      </if>
+      <if test="type!=null">
+        a.type = #{type}
+      </if>
+      <if test="beginDate!=null and endDate!=null">
+         a.create_time BETWEEN beginDate AND endDate
+      </if>
+      <if test="countryId!=null">
+         b.country_id = #{countryId}
+      </if>
+      <if test="countryIdList!=null">
+         b. country_id not in
+        <foreach collection="countryIdList" item="cId" index="index" open="(" close=")" separator=",">
+          #{cId}
+        </foreach>
+      </if>
+    </where>
+  </select>
 </mapper>

@@ -34,7 +34,7 @@ public class AdminServiceImpl extends AbstractService implements IAdminService {
 
     @Override
     public AdminFunctionDto login(String email, String password) throws BaseException {
-        AdminFunctionDto adminFunctionDto = adminMapper.selectJoinFunction(email, password);
+        AdminFunctionDto adminFunctionDto = adminMapper.selectJoinFunction(email, MD5.getMD5Code(password));
         if(adminFunctionDto ==null){
             throw new BaseException(StatEnum.PASSWORD_ERROR);
         }

@@ -5,6 +5,7 @@ import com.rcplatform.livechat.common.response.Page;
 import com.rcplatform.livechat.dto.request.PayStatReqDto;
 import com.rcplatform.livechat.dto.request.StatisticsReqDto;
 import com.rcplatform.livechat.dto.response.PayStatDayDto;
+import com.rcplatform.livechat.dto.response.UserPayDayResp;
 import com.rcplatform.livechat.model.MatchNumDay;
 import com.rcplatform.livechat.model.PayStatDay;
 import com.rcplatform.livechat.model.StatisticsDay;
@@ -164,6 +165,16 @@ public class StatisticsDayController {
     @ResponseBody
     List getActiveUserHour(Integer adminId,Date date){
         return statisticsDayService.getActiveUserHour(adminId,date);
+    }
+
+
+
+
+
+    @RequestMapping(value="getPayDayGroup",method = RequestMethod.GET)
+    @ResponseBody
+    List<UserPayDayResp> getPayDayGroup(Integer adminId, String date){
+         return statisticsDayService.getUserPayGroupBy(adminId,date);
     }
 
 }

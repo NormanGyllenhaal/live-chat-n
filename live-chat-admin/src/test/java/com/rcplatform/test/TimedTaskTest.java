@@ -1,14 +1,13 @@
 package com.rcplatform.test;
 
 import com.rcplatform.livechat.Application;
-import com.rcplatform.livechat.task.PushTask;
+import com.rcplatform.livechat.common.util.MD5;
 import com.rcplatform.livechat.task.TimedTask;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 /**
  * Created by admin on 2016/12/8.
@@ -41,5 +40,12 @@ public class TimedTaskTest {
     @Test
     public void testMatchTask(){
         timedTask.matchNumDayTask();
+    }
+
+
+    @Test
+    public void testMdt(){
+        String md5Code = MD5.getMD5Code("1");
+        System.out.println("加密"+md5Code);
     }
 }

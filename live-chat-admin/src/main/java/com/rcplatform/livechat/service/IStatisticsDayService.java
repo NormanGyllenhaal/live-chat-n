@@ -5,6 +5,7 @@ import com.rcplatform.livechat.common.response.Page;
 import com.rcplatform.livechat.dto.request.PayStatReqDto;
 import com.rcplatform.livechat.dto.request.StatisticsReqDto;
 import com.rcplatform.livechat.dto.response.PayStatDayDto;
+import com.rcplatform.livechat.dto.response.UserPayDayResp;
 import com.rcplatform.livechat.model.MatchNumDay;
 import com.rcplatform.livechat.model.PayStatDay;
 import com.rcplatform.livechat.model.StatisticsDay;
@@ -89,4 +90,7 @@ public interface IStatisticsDayService {
 
 
     List getActiveUserHour(Integer adminId, Date date);
+
+
+    List<UserPayDayResp> getUserPayGroupBy(Integer adminId,String date);
 }

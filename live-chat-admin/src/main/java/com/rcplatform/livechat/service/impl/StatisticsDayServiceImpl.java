@@ -6,6 +6,7 @@ import com.rcplatform.livechat.common.util.DateUtil;
 import com.rcplatform.livechat.dto.request.PayStatReqDto;
 import com.rcplatform.livechat.dto.request.StatisticsReqDto;
 import com.rcplatform.livechat.dto.response.PayStatDayDto;
+import com.rcplatform.livechat.dto.response.UserPayDayResp;
 import com.rcplatform.livechat.dto.response.UserPayRecordAdminDto;
 import com.rcplatform.livechat.mapper.*;
 import com.rcplatform.livechat.model.MatchNumDay;
@@ -212,6 +213,13 @@ public class StatisticsDayServiceImpl extends AbstractService implements IStatis
      */
     public List getActiveUserHour(Integer adminId,Date date){
         return activeUserHourMapper.selectActiveHour(date);
+    }
+
+
+
+    @Override
+    public List<UserPayDayResp> getUserPayGroupBy(Integer adminId, String date) {
+        return userPayRecordMapper.selectGroupBy(date);
     }
 
 
